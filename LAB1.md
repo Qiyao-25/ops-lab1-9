@@ -25,8 +25,8 @@
 
 | 项 | 链接或文本 |
 |---|---|
-| 规则集里启用的规则 | <列出规则名、审批人数和必需检查的名称> |
-| 组长直接 `git push origin main` 被拒的终端输出 | <粘贴文本> |
+| 规则集里启用的规则 | 规则集名称：opsRule，状态：Active，作用于默认分支 main。启用规则：① Restrict deletions；② Block force pushes；③ Require a pull request before merging，要求至少 1 名其他组员审批；④ Require status checks to pass，必需检查为 ci。 |
+| 组长直接 `git push origin main` 被拒的终端输出 | 见下方实际终端输出。GitHub 返回 GH013，明确提示必须通过 PR 修改 main，且需要通过 ci 状态检查。 |
 | 第一轮：失败的 PR 运行 | <链接> |
 | 第一轮：修复后通过的 PR 运行 | <链接> |
 | 第一轮：合入 main 后的运行（含制品） | <链接> |
@@ -38,6 +38,22 @@
 | Release v1.0.0 | <链接> |
 | Release v1.0.1 | <链接> |
 
+[main e3e5e33] test: direct push
+Enumerating objects: 1, done.
+Counting objects: 100% (1/1), done.
+Writing objects: 100% (1/1), 186 bytes | 186.00 KiB/s, done.
+Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: error: GH013: Repository rule violations found for refs/heads/main.
+remote: Review all repository rules at https://github.com/Qiyao-25/ops-lab1-9/rules?ref=refs%2Fheads%2Fmain
+remote:
+remote: - Changes must be made through a pull request.
+remote:
+remote: - Required status check "ci" is expected.
+remote:
+To https://github.com/Qiyao-25/ops-lab1-9.git
+ ! [remote rejected] main -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'https://github.com/Qiyao-25/ops-lab1-9.git'
+HEAD is now at 3bd8d71 basci info (#2)
 ## 4. 追溯与运行
 
 对 v1.0.0 和 v1.0.1 各运行一次 `scripts/trace.sh`，粘贴输出，并填写下表。
