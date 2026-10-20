@@ -16,10 +16,10 @@
 
 | 问题 | 观察结果 |
 |---|---|
-| 第一次 `make package` 得到的 BUILD_INFO（粘贴） | <填写> |
-| 修改一行、不提交，再次打包：BUILD_INFO 是否变化？二进制文件的 sha256 是否变化？（贴出两次的 sha256） | <填写> |
-| 两次 `go version -m` 输出中的 vcs 行有何不同？ | <填写> |
-| 仅凭 BUILD_INFO，能否回答该包是什么、在哪台机器上、何时、用哪份代码构建？哪一项信息会出错？ | <填写> |
+| 第一次 `make package` 得到的 BUILD_INFO（粘贴） | name=enroll-conflict；version=1.0.0；build_no=1；run_id=local；commit=7b63b41c13f061439997b0e6e4eaa2af922a7aa1；go=go1.26.9 |
+| 修改一行、不提交，再次打包：BUILD_INFO 是否变化？二进制文件的 sha256 是否变化？（贴出两次的 sha256） | BUILD_INFO 未变化，但二进制文件的 SHA-256 发生变化。第一次：f23447d406c42af7dd35e23c2d1b2f15484cfb709cc9b4bb1262643694b8528e；第二次：6bcad78cf2239992e60985ae0e11215dab59c1fd7d9809d0a7438df8ebe0b61c。|
+| 两次 `go version -m` 输出中的 vcs 行有何不同？ | vcs=git、vcs.revision 和 vcs.time 均相同，只有 vcs.modified 从 false 变为 true，表明第二次构建存在未提交的代码修改。|
+| 仅凭 BUILD_INFO，能否回答该包是什么、在哪台机器上、何时、用哪份代码构建？哪一项信息会出错？ | 只能确定程序名称、版本及记录的提交号，无法确定构建机器和构建时间。代码来源信息可能不准确：第二次构建包含未提交的修改，但 commit 仍指向原提交，无法完整反映实际使用的源码。 |
 
 ## 3. 证据
 
