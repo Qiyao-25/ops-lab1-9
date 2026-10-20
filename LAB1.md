@@ -6,11 +6,11 @@
 
 | 项 | 内容 |
 |---|---|
-| 小组 | 第 <组号> 组 |
-| 仓库地址 | <https://github.com/…> |
-| 代码载体 | 统一示例 / 自己的项目（<项目名与语言>） |
-| runner 与语言版本 | `ubuntu-24.04`，<Go 或其他语言的版本> |
-| 合并方式 | <squash / merge commit / rebase> |
+| 小组 | 第 9 组 |
+| 仓库地址 | https://github.com/Qiyao-25/ops-lab1-9/ |
+| 代码载体 | 统一示例  |
+| runner 与语言版本 | `ubuntu-24.04`，Go 1.26.9 |
+| 合并方式 | squash  |
 
 ## 2. 任务 0：本地基线
 
