@@ -30,10 +30,10 @@
 | 第一轮：失败的 PR 运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39454757987 |
 | 第一轮：修复后通过的 PR 运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39456563807 |
 | 第一轮：合入 main 后的运行（含制品） | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39458610700 |
-| 第二轮：找到的缺陷，以及现有测试为何无法发现它 | <一两句话> |
-| 第二轮：仅含缺陷时仍然通过的运行 | <链接> |
-| 第二轮：补测试后失败的运行 | <链接> |
-| 第二轮：撤销缺陷后通过的运行 | <链接> |
+| 第二轮：找到的缺陷，以及现有测试为何无法发现它 | `weeksOverlap` 在双方都是双周时返回没有交集，违背“双周对双周才有交集”的规则。现有测试覆盖了单周对单周、单周对双周和双周对每周，没有双周对双周，所以原先的 `make test` 不能发现它。 |
+| 第二轮：仅含缺陷时仍然通过的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535035335 |
+| 第二轮：补测试后失败的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535181115 |
+| 第二轮：撤销缺陷后通过的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535403658 |
 | 未合入分支上的 tag 被 release gate 拒绝的运行 | <链接> |
 | Release v1.0.0 | <链接> |
 | Release v1.0.1 | <链接> |
