@@ -36,7 +36,7 @@
 | 第二轮：撤销缺陷后通过的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535403658 |
 | 未合入分支上的 tag 被 release gate 拒绝的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713593313 |
 | Release v1.0.0 | https://github.com/Qiyao-25/ops-lab1-9/releases/tag/v1.0.0 |
-| Release v1.0.1 | <链接> |
+| Release v1.0.1 | https://github.com/Qiyao-25/ops-lab1-9/releases/tag/v1.0.1 |
 
 [main e3e5e33] test: direct push
 Enumerating objects: 1, done.
@@ -60,18 +60,18 @@ HEAD is now at 3bd8d71 basci info (#2)
 
 | 项 | v1.0.0 | v1.0.1 |
 |---|---|---|
-| 版本号 | 1.0.0 | <填写> |
-| 构建号 | 1 | <填写> |
-| 提交号（SHA） | `0e68161b2924d975d970e3ca9c97b0935519f754` | <填写> |
-| 引入该提交的 PR | [#6](https://github.com/Qiyao-25/ops-lab1-9/pull/6) | <编号与链接> |
-| 构建它的 Actions 运行（`trace.sh` 给出的链接） | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034 | <链接> |
-| 制品 sha256（发布当时，取自 Release 里的 .sha256） | `4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c` | <填写> |
+| 版本号 | 1.0.0 | 1.0.1 |
+| 构建号 | 1 | 3 |
+| 提交号（SHA） | `0e68161b2924d975d970e3ca9c97b0935519f754` | `0e68161b2924d975d970e3ca9c97b0935519f754` |
+| 引入该提交的 PR | [#6](https://github.com/Qiyao-25/ops-lab1-9/pull/6) | [#6](https://github.com/Qiyao-25/ops-lab1-9/pull/6) |
+| 构建它的 Actions 运行（`trace.sh` 给出的链接） | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39723834091 |
+| 制品 sha256（发布当时，取自 Release 里的 .sha256） | `4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c` | `1f68ffc908cef53991bbc55697bd20b0de4ef5b9df39c8d59b4a56892587e0f5` |
 
 仅凭构建号能否唯一确定是哪次运行？v1.0.0 的构建号在 `ci` 和 `release` 的运行列表中各对应哪次运行？
 
 不能。`github.run_number` 在每个工作流中独立计数，因此相同构建号可能对应不同运行。v1.0.0 的构建号为 1：在 `ci` 中，对应 [ci #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39383173108)；在 `release` 中，对应 [release #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034)。实际构建 v1.0.0 发布附件的是后者，可通过附件 `BUILD_INFO` 中的 `run_id=39713235034` 唯一定位。
 
-发布 v1.0.1 之后重新下载 v1.0.0 的附件，计算得到的 sha256：<填写>。与上表中发布当时的值是否一致？<填写>
+发布 v1.0.1 之后重新下载 v1.0.0 的附件，计算得到的 sha256：`4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c`。与上表中发布当时的值是否一致？一致。
 
 `trace.sh` 输出（v1.0.0）：
 
@@ -99,14 +99,35 @@ go=go1.26.9
 `trace.sh` 输出（v1.0.1）：
 
 ```text
-<粘贴>
+== 1. 校验和
+enroll-conflict_1.0.1_linux_amd64.tar.gz: OK
+== 2. 制品里的 BUILD_INFO
+name=enroll-conflict
+version=1.0.1
+build_no=3
+run_id=39723834091
+commit=0e68161b2924d975d970e3ca9c97b0935519f754
+go=go1.26.9
+== 3. 提交 0e68161b2924d975d970e3ca9c97b0935519f754
+作者: Lu Yakun <3336702498@qq.com>
+时间: 2026-10-22T10:44:17+08:00
+标题: ci: add gated tag release workflow (#6)
+主干: 该提交在 origin/main 的历史上
+指向它的 tag: v1.0.0
+v1.0.1
+版本号: 1.0.1    构建号: 3
+提交页面（含关联的 PR）: https://github.com/Qiyao-25/ops-lab1-9/commit/0e68161b2924d975d970e3ca9c97b0935519f754
+构建它的运行: https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39723834091
 ```
 
 任务 6 第 4 步，两次 `/version` 的输出：
 
 ```text
-<运行 v1.0.1 时>
-<换回 v1.0.0 后>
+运行 v1.0.1 时：
+{"version":"1.0.1","commit":"0e68161b2924d975d970e3ca9c97b0935519f754","build_no":"3","go":"go1.26.9"}
+
+换回 v1.0.0 后：
+{"version":"1.0.0","commit":"0e68161b2924d975d970e3ca9c97b0935519f754","build_no":"1","go":"go1.26.9"}
 ```
 
 ## 5. 数据
@@ -117,7 +138,7 @@ go=go1.26.9
 
 | 事件 | 时间 | 链接 |
 |---|---|---|
-| 发起 PR | <填写> | <PR 链接> |
+| 发起 PR | OCT 21, 2026, 00:08 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/pull/4 |
 | 第一次 `ci` 失败（运行结束） | OCT 21, 2026, 00:08 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39454757987 |
 | 推送修复提交 | OCT 21, 2026, 00:17 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/pull/4/changes/ce000f59958f4e8c2b3e32ccfefb1f343c0ef849 |
 | `ci` 通过（运行结束） | OCT 21, 2026, 00:20 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39456563807 |
@@ -127,15 +148,41 @@ go=go1.26.9
 
 | PR | 第一个提交的时间 | 合入时间 | 对应 Release 的发布时间 | 提交到发布的间隔 |
 |---|---|---|---|---|
-| #<编号> | <填写> | <填写> | <填写> | <填写> |
-| #<编号> | <填写> | <填写> | <填写> | <填写> |
-| #<编号> | <填写> | <填写> | <填写> | <填写> |
+| #4 | OCT 21, 2026, 00:03 GMT+8 | OCT 21, 2026, 00:34 GMT+8 | v1.0.0：OCT 22, 2026, 10:46 GMT+8 | 约 34 小时 43 分 |
+| #6 | OCT 21, 2026, 09:56 GMT+8 | OCT 22, 2026, 10:44 GMT+8 | v1.0.0：OCT 22, 2026, 10:46 GMT+8 | 约 24 小时 50 分 |
+| #8 | OCT 21, 2026, 11:33 GMT+8 | OCT 21, 2026, 23:20 GMT+8 | v1.0.0：OCT 22, 2026, 10:46 GMT+8 | 约 23 小时 13 分 |
 
 `ci` 工作流的运行时长（从 Actions 页面读取），至少 5 次，全部列出，不要只给出平均值：
 
 | 运行 | 事件（PR / push） | 时长 | 备注 |
 |---|---|---|---|
-| #<编号> | <填写> | <填写> | <填写> |
+| ci #1 | push（07885bd） | 44 s | 首次运行，Go 模块缓存未命中 |
+| ci #2 | pull_request | 20 s | |
+| ci #3 | push（3f02f9b） | 16 s | PR #1 合入后 |
+| ci #4 | pull_request | 14 s | |
+| ci #5 | push（3bd8d71） | 20 s | PR #2 合入后 |
+| ci #6 | pull_request | 19 s | |
+| ci #7 | push（fb5be4f） | 20 s | PR #3 合入后 |
+| ci #8 | pull_request | 12 s | |
+| ci #9 | pull_request（ce000f5） | 20 s | PR #4 第一轮，失败 |
+| ci #10 | push（eee7836） | 20 s | PR #4 修复合入后 |
+| ci #11 | pull_request | 20 s | |
+| ci #12 | push（4913670） | 27 s | PR #5 合入后 |
+| ci #13 | pull_request | 16 s | |
+| ci #14 | pull_request（1f3b834） | 13 s | 第二轮：注入缺陷 |
+| ci #15 | pull_request（169c944） | 20 s | 第二轮：补测试，失败 |
+| ci #16 | pull_request（821d5d7） | 16 s | 第二轮：撤销缺陷 |
+| ci #17 | pull_request | 12 s | |
+| ci #18 | push（2b1c08c） | 19 s | PR #8 合入后 |
+| ci #19 | push（cb6aefc） | 25 s | PR #7 合入后 |
+| ci #20 | push（0e68161） | 23 s | PR #6 合入后，含 package 步骤 |
+| ci #21 | pull_request | 14 s | |
+| ci #22 | pull_request | 16 s | |
+| ci #23 | push（5506cbe） | 17 s | PR #10 合入后 |
+| ci #24 | pull_request | 15 s | |
+| release #1 | push（0e68161） | 16 s | 发布 v1.0.0 |
+| release #2 | push（73ee6af） | 8 s | 未合入分支上的 tag，被 gate 拒绝 |
+| release #3 | push（0e68161） | 23 s | 发布 v1.0.1 |
 
 ## 6. 分析问题
 
@@ -172,9 +219,9 @@ go=go1.26.9
 
 | 选做 | 完成情况与证据 |
 |---|---|
-| O1 容器镜像 | <未做 / 链接、镜像摘要（digest）、运行容器的主机架构> |
-| O2 缓存对反馈时间的影响 | <未做 / 预期、数据与结论> |
-| O3 迁移到小组项目 | <未做 / 仓库链接> |
+| O1 容器镜像 | 已完成。基于 v1.0.0 发布制品构建镜像 `enroll-conflict:1.0.0`，镜像摘要（digest）`sha256:87b73ab26754df004dbebc26d799b3740fa0350a24d051d5e391b61db06ffc9d`，架构 `linux/amd64`（构建于 Windows x64 主机，Docker Desktop Linux engine）。`docker run --rm enroll-conflict:1.0.0 -version` 输出 `version=1.0.0 commit=0e68161b2924d975d970e3ca9c97b0935519f754 build_no=1 go=go1.26.9`，与 Release 附件一致。 |
+| O2 缓存对反馈时间的影响 | 已完成。预期：`setup-go` 开启 `cache: true` 后，Go 模块依赖被缓存，后续运行的依赖下载步骤可跳过，整体 ci 时长缩短。数据：首次运行 ci #1（无缓存）耗时 44 s；开启缓存后 ci #3～#24 的时长集中在 12～27 s，中位数约 19 s。结论：缓存使首次冷启动后的 ci 反馈时间缩短约 40%～60%，对于"提交→测试"这一高频反馈环节效果明显；但缓存只加速依赖下载，对 `go vet`/`go test` 本身的耗时无影响，因此单次 ci 仍有十几秒的下限。 |
+| O3 迁移到小组项目 | 迁移步骤已整理，待填入目标仓库链接。需复制：① `.github/workflows/ci.yml` 与 `.github/workflows/release.yml`；② `Makefile`、`scripts/trace.sh`、`Dockerfile`；③ 在 GitHub 仓库 Settings → Rules 中新建与 `opsRule` 等价的规则集（Restrict deletions、Block force pushes、Require PR before merging（≥1 审批）、Require status check `ci`）；④ 在 main 上打 `v1.0.0` tag 触发 release。目标仓库链接：<填写小组项目仓库地址> |
 
 ## 8. 成员贡献
 
@@ -182,4 +229,8 @@ go=go1.26.9
 
 | GitHub 用户名 | 发起并合入的 PR 编号 | 审批过的 PR 编号 |
 |---|---|---|
-| <用户名> | <编号> | <编号> |
+| Qiyao-25 | #1, #2, #3 | #4, #5, #10 |
+| mohanlu | #4, #5 | #1, #2, #3, #8 |
+| sjettu | #6, #10 | #7 |
+| YiningZhang401 | #7, #8 | #6 |
+| <E 的 GitHub 用户名> | <填写本次提交 LAB1.md 的 PR 编号> | <填写> |
