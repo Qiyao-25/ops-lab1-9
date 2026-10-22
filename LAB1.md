@@ -67,27 +67,33 @@ HEAD is now at 3bd8d71 basci info (#2)
 | 构建它的 Actions 运行（`trace.sh` 给出的链接） | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034 | <链接> |
 | 制品 sha256（发布当时，取自 Release 里的 .sha256） | `4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c` | <填写> |
 
-任务 5 发布与门禁验收记录：
+仅凭构建号能否唯一确定是哪次运行？v1.0.0 的构建号在 `ci` 和 `release` 的运行列表中各对应哪次运行？
 
-- `v1.0.0` 发布工作流成功，Release 包含压缩包和同名 `.sha256` 文件，链接见第 3 节及上表。
-- 上表的 v1.0.0 版本号、构建号、提交号和运行 ID 已从实际附件的 `BUILD_INFO` 核对；其中 `run_id=39713235034`，`go=go1.26.9`。任务 6 的 `trace.sh` 输出仍需后续补充。
-- 本机 WSL 下载两个附件后，在附件目录执行 `sha256sum -c enroll-conflict_1.0.0_linux_amd64.tar.gz.sha256`，实际输出如下：
-
-```text
-enroll-conflict_1.0.0_linux_amd64.tar.gz: OK
-```
-
-- 在临时分支 `scratch/gate-test` 创建未合入 main 的空提交 `73ee6af644421c7947d8a8a238236f3ec5f0bc6a`，并推送指向该提交的 `v0.0.1` tag。对应运行在 `Release gate` 步骤失败，安装 Go、检查、打包及创建 Release 步骤均跳过，未生成 `v0.0.1` Release。
-- 测试结束后，已删除远程 `scratch/gate-test` 分支、远程 `v0.0.1` tag 和本地 `v0.0.1` tag；保留失败的 Actions 运行作为证据。
-
-仅凭构建号能否唯一确定是哪次运行？v1.0.0 的构建号在 `ci` 和 `release` 的运行列表中各对应哪次运行？<填写>
+不能。`github.run_number` 在每个工作流中独立计数，因此相同构建号可能对应不同运行。v1.0.0 的构建号为 1：在 `ci` 中，对应 [ci #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39383173108)；在 `release` 中，对应 [release #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034)。实际构建 v1.0.0 发布附件的是后者，可通过附件 `BUILD_INFO` 中的 `run_id=39713235034` 唯一定位。
 
 发布 v1.0.1 之后重新下载 v1.0.0 的附件，计算得到的 sha256：<填写>。与上表中发布当时的值是否一致？<填写>
 
 `trace.sh` 输出（v1.0.0）：
 
 ```text
-<粘贴>
+== 1. 校验和
+enroll-conflict_1.0.0_linux_amd64.tar.gz: OK
+== 2. 制品里的 BUILD_INFO
+name=enroll-conflict
+version=1.0.0
+build_no=1
+run_id=39713235034
+commit=0e68161b2924d975d970e3ca9c97b0935519f754
+go=go1.26.9
+== 3. 提交 0e68161b2924d975d970e3ca9c97b0935519f754
+作者: Lu Yakun <3336702498@qq.com>
+时间: 2026-10-22T10:44:17+08:00
+标题: ci: add gated tag release workflow (#6)
+主干: 该提交在 origin/main 的历史上
+指向它的 tag: v1.0.0
+版本号: 1.0.0    构建号: 1
+提交页面（含关联的 PR）: https://github.com/Qiyao-25/ops-lab1-9/commit/0e68161b2924d975d970e3ca9c97b0935519f754
+构建它的运行: https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034
 ```
 
 `trace.sh` 输出（v1.0.1）：
