@@ -34,8 +34,8 @@
 | 第二轮：仅含缺陷时仍然通过的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535035335 |
 | 第二轮：补测试后失败的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535181115 |
 | 第二轮：撤销缺陷后通过的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535403658 |
-| 未合入分支上的 tag 被 release gate 拒绝的运行 | <链接> |
-| Release v1.0.0 | <链接> |
+| 未合入分支上的 tag 被 release gate 拒绝的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713593313 |
+| Release v1.0.0 | https://github.com/Qiyao-25/ops-lab1-9/releases/tag/v1.0.0 |
 | Release v1.0.1 | <链接> |
 
 [main e3e5e33] test: direct push
@@ -60,21 +60,40 @@ HEAD is now at 3bd8d71 basci info (#2)
 
 | 项 | v1.0.0 | v1.0.1 |
 |---|---|---|
-| 版本号 | <填写> | <填写> |
-| 构建号 | <填写> | <填写> |
-| 提交号（SHA） | <填写> | <填写> |
-| 引入该提交的 PR | <编号与链接> | <编号与链接> |
-| 构建它的 Actions 运行（`trace.sh` 给出的链接） | <链接> | <链接> |
-| 制品 sha256（发布当时，取自 Release 里的 .sha256） | <填写> | <填写> |
+| 版本号 | 1.0.0 | <填写> |
+| 构建号 | 1 | <填写> |
+| 提交号（SHA） | `0e68161b2924d975d970e3ca9c97b0935519f754` | <填写> |
+| 引入该提交的 PR | [#6](https://github.com/Qiyao-25/ops-lab1-9/pull/6) | <编号与链接> |
+| 构建它的 Actions 运行（`trace.sh` 给出的链接） | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034 | <链接> |
+| 制品 sha256（发布当时，取自 Release 里的 .sha256） | `4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c` | <填写> |
 
-仅凭构建号能否唯一确定是哪次运行？v1.0.0 的构建号在 `ci` 和 `release` 的运行列表中各对应哪次运行？<填写>
+仅凭构建号能否唯一确定是哪次运行？v1.0.0 的构建号在 `ci` 和 `release` 的运行列表中各对应哪次运行？
+
+不能。`github.run_number` 在每个工作流中独立计数，因此相同构建号可能对应不同运行。v1.0.0 的构建号为 1：在 `ci` 中，对应 [ci #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39383173108)；在 `release` 中，对应 [release #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034)。实际构建 v1.0.0 发布附件的是后者，可通过附件 `BUILD_INFO` 中的 `run_id=39713235034` 唯一定位。
 
 发布 v1.0.1 之后重新下载 v1.0.0 的附件，计算得到的 sha256：<填写>。与上表中发布当时的值是否一致？<填写>
 
 `trace.sh` 输出（v1.0.0）：
 
 ```text
-<粘贴>
+== 1. 校验和
+enroll-conflict_1.0.0_linux_amd64.tar.gz: OK
+== 2. 制品里的 BUILD_INFO
+name=enroll-conflict
+version=1.0.0
+build_no=1
+run_id=39713235034
+commit=0e68161b2924d975d970e3ca9c97b0935519f754
+go=go1.26.9
+== 3. 提交 0e68161b2924d975d970e3ca9c97b0935519f754
+作者: Lu Yakun <3336702498@qq.com>
+时间: 2026-10-22T10:44:17+08:00
+标题: ci: add gated tag release workflow (#6)
+主干: 该提交在 origin/main 的历史上
+指向它的 tag: v1.0.0
+版本号: 1.0.0    构建号: 1
+提交页面（含关联的 PR）: https://github.com/Qiyao-25/ops-lab1-9/commit/0e68161b2924d975d970e3ca9c97b0935519f754
+构建它的运行: https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034
 ```
 
 `trace.sh` 输出（v1.0.1）：
