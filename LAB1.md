@@ -34,8 +34,8 @@
 | 第二轮：仅含缺陷时仍然通过的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535035335 |
 | 第二轮：补测试后失败的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535181115 |
 | 第二轮：撤销缺陷后通过的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535403658 |
-| 未合入分支上的 tag 被 release gate 拒绝的运行 | <链接> |
-| Release v1.0.0 | <链接> |
+| 未合入分支上的 tag 被 release gate 拒绝的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713593313 |
+| Release v1.0.0 | https://github.com/Qiyao-25/ops-lab1-9/releases/tag/v1.0.0 |
 | Release v1.0.1 | <链接> |
 
 [main e3e5e33] test: direct push
@@ -60,12 +60,25 @@ HEAD is now at 3bd8d71 basci info (#2)
 
 | 项 | v1.0.0 | v1.0.1 |
 |---|---|---|
-| 版本号 | <填写> | <填写> |
-| 构建号 | <填写> | <填写> |
-| 提交号（SHA） | <填写> | <填写> |
-| 引入该提交的 PR | <编号与链接> | <编号与链接> |
-| 构建它的 Actions 运行（`trace.sh` 给出的链接） | <链接> | <链接> |
-| 制品 sha256（发布当时，取自 Release 里的 .sha256） | <填写> | <填写> |
+| 版本号 | 1.0.0 | <填写> |
+| 构建号 | 1 | <填写> |
+| 提交号（SHA） | `0e68161b2924d975d970e3ca9c97b0935519f754` | <填写> |
+| 引入该提交的 PR | [#6](https://github.com/Qiyao-25/ops-lab1-9/pull/6) | <编号与链接> |
+| 构建它的 Actions 运行（`trace.sh` 给出的链接） | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034 | <链接> |
+| 制品 sha256（发布当时，取自 Release 里的 .sha256） | `4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c` | <填写> |
+
+任务 5 发布与门禁验收记录：
+
+- `v1.0.0` 发布工作流成功，Release 包含压缩包和同名 `.sha256` 文件，链接见第 3 节及上表。
+- 上表的 v1.0.0 版本号、构建号、提交号和运行 ID 已从实际附件的 `BUILD_INFO` 核对；其中 `run_id=39713235034`，`go=go1.26.9`。任务 6 的 `trace.sh` 输出仍需后续补充。
+- 本机 WSL 下载两个附件后，在附件目录执行 `sha256sum -c enroll-conflict_1.0.0_linux_amd64.tar.gz.sha256`，实际输出如下：
+
+```text
+enroll-conflict_1.0.0_linux_amd64.tar.gz: OK
+```
+
+- 在临时分支 `scratch/gate-test` 创建未合入 main 的空提交 `73ee6af644421c7947d8a8a238236f3ec5f0bc6a`，并推送指向该提交的 `v0.0.1` tag。对应运行在 `Release gate` 步骤失败，安装 Go、检查、打包及创建 Release 步骤均跳过，未生成 `v0.0.1` Release。
+- 测试结束后，已删除远程 `scratch/gate-test` 分支、远程 `v0.0.1` tag 和本地 `v0.0.1` tag；保留失败的 Actions 运行作为证据。
 
 仅凭构建号能否唯一确定是哪次运行？v1.0.0 的构建号在 `ci` 和 `release` 的运行列表中各对应哪次运行？<填写>
 
