@@ -138,7 +138,7 @@ v1.0.1
 
 | 事件 | 时间 | 链接 |
 |---|---|---|
-| 发起 PR | <填写> | <PR 链接> |
+| 发起 PR | OCT 21, 2026, 00:08 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/pull/4 |
 | 第一次 `ci` 失败（运行结束） | OCT 21, 2026, 00:08 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39454757987 |
 | 推送修复提交 | OCT 21, 2026, 00:17 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/pull/4/changes/ce000f59958f4e8c2b3e32ccfefb1f343c0ef849 |
 | `ci` 通过（运行结束） | OCT 21, 2026, 00:20 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39456563807 |
@@ -148,15 +148,41 @@ v1.0.1
 
 | PR | 第一个提交的时间 | 合入时间 | 对应 Release 的发布时间 | 提交到发布的间隔 |
 |---|---|---|---|---|
-| #<编号> | <填写> | <填写> | <填写> | <填写> |
-| #<编号> | <填写> | <填写> | <填写> | <填写> |
-| #<编号> | <填写> | <填写> | <填写> | <填写> |
+| #4 | OCT 21, 2026, 00:03 GMT+8 | OCT 21, 2026, 00:34 GMT+8 | v1.0.0：OCT 22, 2026, 10:46 GMT+8 | 约 34 小时 43 分 |
+| #6 | OCT 21, 2026, 09:56 GMT+8 | OCT 22, 2026, 10:44 GMT+8 | v1.0.0：OCT 22, 2026, 10:46 GMT+8 | 约 24 小时 50 分 |
+| #8 | OCT 21, 2026, 11:33 GMT+8 | OCT 21, 2026, 23:20 GMT+8 | v1.0.0：OCT 22, 2026, 10:46 GMT+8 | 约 23 小时 13 分 |
 
 `ci` 工作流的运行时长（从 Actions 页面读取），至少 5 次，全部列出，不要只给出平均值：
 
 | 运行 | 事件（PR / push） | 时长 | 备注 |
 |---|---|---|---|
-| #<编号> | <填写> | <填写> | <填写> |
+| ci #1 | push（07885bd） | 44 s | 首次运行，Go 模块缓存未命中 |
+| ci #2 | pull_request | 20 s | |
+| ci #3 | push（3f02f9b） | 16 s | PR #1 合入后 |
+| ci #4 | pull_request | 14 s | |
+| ci #5 | push（3bd8d71） | 20 s | PR #2 合入后 |
+| ci #6 | pull_request | 19 s | |
+| ci #7 | push（fb5be4f） | 20 s | PR #3 合入后 |
+| ci #8 | pull_request | 12 s | |
+| ci #9 | pull_request（ce000f5） | 20 s | PR #4 第一轮，失败 |
+| ci #10 | push（eee7836） | 20 s | PR #4 修复合入后 |
+| ci #11 | pull_request | 20 s | |
+| ci #12 | push（4913670） | 27 s | PR #5 合入后 |
+| ci #13 | pull_request | 16 s | |
+| ci #14 | pull_request（1f3b834） | 13 s | 第二轮：注入缺陷 |
+| ci #15 | pull_request（169c944） | 20 s | 第二轮：补测试，失败 |
+| ci #16 | pull_request（821d5d7） | 16 s | 第二轮：撤销缺陷 |
+| ci #17 | pull_request | 12 s | |
+| ci #18 | push（2b1c08c） | 19 s | PR #8 合入后 |
+| ci #19 | push（cb6aefc） | 25 s | PR #7 合入后 |
+| ci #20 | push（0e68161） | 23 s | PR #6 合入后，含 package 步骤 |
+| ci #21 | pull_request | 14 s | |
+| ci #22 | pull_request | 16 s | |
+| ci #23 | push（5506cbe） | 17 s | PR #10 合入后 |
+| ci #24 | pull_request | 15 s | |
+| release #1 | push（0e68161） | 16 s | 发布 v1.0.0 |
+| release #2 | push（73ee6af） | 8 s | 未合入分支上的 tag，被 gate 拒绝 |
+| release #3 | push（0e68161） | 23 s | 发布 v1.0.1 |
 
 ## 6. 分析问题
 
@@ -193,9 +219,11 @@ v1.0.1
 
 | 选做 | 完成情况与证据 |
 |---|---|
-| O1 容器镜像 | <未做 / 链接、镜像摘要（digest）、运行容器的主机架构> |
-| O2 缓存对反馈时间的影响 | <未做 / 预期、数据与结论> |
+
+| O1 容器镜像 | 已完成。基于 v1.0.0 发布制品构建镜像 `enroll-conflict:1.0.0`，镜像摘要（digest）`sha256:87b73ab26754df004dbebc26d799b3740fa0350a24d051d5e391b61db06ffc9d`，架构 `linux/amd64`（构建于 Windows x64 主机，Docker Desktop Linux engine）。`docker run --rm enroll-conflict:1.0.0 -version` 输出 `version=1.0.0 commit=0e68161b2924d975d970e3ca9c97b0935519f754 build_no=1 go=go1.26.9`，与 Release 附件一致。 |
+| O2 缓存对反馈时间的影响 | 已完成。预期：`setup-go` 开启 `cache: true` 后，Go 模块依赖被缓存，后续运行的依赖下载步骤可跳过，整体 ci 时长缩短。数据：首次运行 ci #1（无缓存）耗时 44 s；开启缓存后 ci #3～#24 的时长集中在 12～27 s，中位数约 19 s。结论：缓存使首次冷启动后的 ci 反馈时间缩短约 40%～60%，对于"提交→测试"这一高频反馈环节效果明显；但缓存只加速依赖下载，对 `go vet`/`go test` 本身的耗时无影响，因此单次 ci 仍有十几秒的下限。 |
 | O3 迁移到小组项目 | https://github.com/YiningZhang401/ops-lab1-o3 |
+
 
 ## 8. 成员贡献
 
@@ -203,4 +231,8 @@ v1.0.1
 
 | GitHub 用户名 | 发起并合入的 PR 编号 | 审批过的 PR 编号 |
 |---|---|---|
-| <用户名> | <编号> | <编号> |
+| Qiyao-25 | #1, #2, #3 | #4, #5, #10 |
+| mohanlu | #4, #5 | #1, #2, #3, #8 |
+| sjettu | #6, #10 | #7 |
+| YiningZhang401 | #7, #8 | #6 |
+| gulu060719 | #12 | 无 |
