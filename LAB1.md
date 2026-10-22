@@ -219,9 +219,11 @@ v1.0.1
 
 | 选做 | 完成情况与证据 |
 |---|---|
+
 | O1 容器镜像 | 已完成。基于 v1.0.0 发布制品构建镜像 `enroll-conflict:1.0.0`，镜像摘要（digest）`sha256:87b73ab26754df004dbebc26d799b3740fa0350a24d051d5e391b61db06ffc9d`，架构 `linux/amd64`（构建于 Windows x64 主机，Docker Desktop Linux engine）。`docker run --rm enroll-conflict:1.0.0 -version` 输出 `version=1.0.0 commit=0e68161b2924d975d970e3ca9c97b0935519f754 build_no=1 go=go1.26.9`，与 Release 附件一致。 |
 | O2 缓存对反馈时间的影响 | 已完成。预期：`setup-go` 开启 `cache: true` 后，Go 模块依赖被缓存，后续运行的依赖下载步骤可跳过，整体 ci 时长缩短。数据：首次运行 ci #1（无缓存）耗时 44 s；开启缓存后 ci #3～#24 的时长集中在 12～27 s，中位数约 19 s。结论：缓存使首次冷启动后的 ci 反馈时间缩短约 40%～60%，对于"提交→测试"这一高频反馈环节效果明显；但缓存只加速依赖下载，对 `go vet`/`go test` 本身的耗时无影响，因此单次 ci 仍有十几秒的下限。 |
-| O3 迁移到小组项目 | 迁移步骤已整理，待填入目标仓库链接。需复制：① `.github/workflows/ci.yml` 与 `.github/workflows/release.yml`；② `Makefile`、`scripts/trace.sh`、`Dockerfile`；③ 在 GitHub 仓库 Settings → Rules 中新建与 `opsRule` 等价的规则集（Restrict deletions、Block force pushes、Require PR before merging（≥1 审批）、Require status check `ci`）；④ 在 main 上打 `v1.0.0` tag 触发 release。目标仓库链接：<填写小组项目仓库地址> |
+| O3 迁移到小组项目 | https://github.com/YiningZhang401/ops-lab1-o3 |
+
 
 ## 8. 成员贡献
 
