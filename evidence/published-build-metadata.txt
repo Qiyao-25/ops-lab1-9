@@ -1,0 +1,15 @@
+/root/lab1-completion-20261023/releases/enroll-conflict_1.0.0_linux_amd64/enroll-conflict: go1.26.9
+	path	enroll-conflict
+	mod	enroll-conflict	v1.0.0
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	-trimpath=true
+	build	CGO_ENABLED=0
+	build	GOARCH=amd64
+	build	GOOS=linux
+	build	GOAMD64=v1
+	build	vcs=git
+	build	vcs.revision=0e68161b2924d975d970e3ca9c97b0935519f754
+	build	vcs.time=2026-10-22T02:44:17Z
+	build	vcs.modified=false
+43395a2656863ae0ffde4a9c554b7ef1809861b43bdeb523eb4487cb639ce165  /root/lab1-completion-20261023/releases/enroll-conflict_1.0.0_linux_amd64/enroll-conflict

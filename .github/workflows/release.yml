@@ -60,3 +60,98 @@ jobs:
             --verify-tag \
             --title "$GITHUB_REF_NAME" \
             --generate-notes
+
+  image:
+    needs: release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out Dockerfile
+        uses: actions/checkout@v7
+
+      - name: Download and verify published binary
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          asset="enroll-conflict_${version}_linux_amd64.tar.gz"
+          mkdir -p dist/release
+          gh release download "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" \
+            --pattern "$asset" --pattern "$asset.sha256" --dir dist/release
+          (cd dist/release && sha256sum -c "$asset.sha256")
+          tar -xzf "dist/release/$asset" -C dist/release
+          info="dist/release/enroll-conflict_${version}_linux_amd64/BUILD_INFO"
+          grep -Fx "version=$version" "$info"
+          grep -Fx "commit=$GITHUB_SHA" "$info"
+
+      - name: Build and publish image from the release binary
+        id: publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          IMAGE_NAME: ghcr.io/${{ github.repository }}
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          image="${IMAGE_NAME,,}"
+          context="dist/release/enroll-conflict_${version}_linux_amd64"
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          trap 'docker logout ghcr.io >/dev/null 2>&1 || true' EXIT
+          docker build --platform linux/amd64 -f Dockerfile \
+            --build-arg VERSION="$version" --build-arg COMMIT="$GITHUB_SHA" \
+            --build-arg SOURCE="https://github.com/$GITHUB_REPOSITORY" \
+            --tag "$image:$GITHUB_REF_NAME" "$context"
+          docker push "$image:$GITHUB_REF_NAME"
+          ref=$(docker image inspect "$image:$GITHUB_REF_NAME" \
+            --format '{{index .RepoDigests 0}}')
+          case "$ref" in
+            "$image"@sha256:*) ;;
+            *) echo "::error::Missing registry digest"; exit 1 ;;
+          esac
+          printf 'ref=%s\n' "$ref" >> "$GITHUB_OUTPUT"
+          printf '%s\n' "$ref" > dist/image-reference.txt
+          docker run --rm --network none "$ref" -version | tee dist/image-version.txt
+
+      - name: Check anonymous pull by digest
+        env:
+          IMAGE_REF: ${{ steps.publish.outputs.ref }}
+        run: |
+          set -euo pipefail
+          anonymous_config=$(mktemp -d)
+          trap 'rm -rf -- "$anonymous_config"' EXIT
+          if docker --config "$anonymous_config" pull "$IMAGE_REF"; then
+            printf 'anonymous_pull=success\n' | tee dist/anonymous-pull.txt
+          else
+            printf 'anonymous_pull=denied; review package visibility and registry access\n' \
+              | tee dist/anonymous-pull.txt
+            echo "::warning::Image is published; anonymous pull needs review."
+          fi
+
+      - name: Record container evidence
+        env:
+          IMAGE_REF: ${{ steps.publish.outputs.ref }}
+        run: |
+          {
+            printf '### O1 container evidence\n\n'
+            printf 'Image: %s\n\n' "$IMAGE_REF"
+            printf 'Host: '; uname -sm
+            printf '\nImage platform: '
+            docker image inspect "$IMAGE_REF" --format '{{.Os}}/{{.Architecture}}'
+            printf '\nVersion output:\n'
+            cat dist/image-version.txt
+            printf '\n'
+            cat dist/anonymous-pull.txt
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Save container evidence
+        uses: actions/upload-artifact@v7
+        with:
+          name: container-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            dist/image-reference.txt
+            dist/image-version.txt
+            dist/anonymous-pull.txt
+          retention-days: 14

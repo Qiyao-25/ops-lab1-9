@@ -1,6 +1,6 @@
 # 实验 1 记录：第 9 组
 
-现场检查时将打开本文件，按其中的链接核对。证据一律以链接或文本形式给出，不要只贴截图。将 `<填写>` 替换为本组的内容。main 受保护之后，修改本文件也须通过 PR。
+本文件为待提交稿，补充实验于 2026-10-23 在组内 Linux 主机完成。GitHub CI 重跑及 O2 缓存对照已完成；GHCR 发布与 v1.0.2 发布尚未完成，以下明确标注；未取得的数据不作结论。main 受保护，修改仍通过 PR 和其他组员审批合入。
 
 ## 1. 基本信息
 
@@ -10,7 +10,7 @@
 | 仓库地址 | https://github.com/Qiyao-25/ops-lab1-9/ |
 | 代码载体 | 统一示例  |
 | runner 与语言版本 | `ubuntu-24.04`，Go 1.26.9 |
-| 合并方式 | squash  |
+| 合并方式 | squash；已核对仓库仅允许 squash，并启用合并后自动删除分支。 |
 
 ## 2. 任务 0：本地基线
 
@@ -25,7 +25,7 @@
 
 | 项 | 链接或文本 |
 |---|---|
-| 规则集里启用的规则 | 规则集名称：opsRule，状态：Active，作用于默认分支 main。启用规则：① Restrict deletions；② Block force pushes；③ Require a pull request before merging，要求至少 1 名其他组员审批；④ Require status checks to pass，必需检查为 ci。 |
+| 规则集里启用的规则 | 规则集名称：opsRule，状态：Active，作用于默认分支 main，Bypass list 已核对为空。启用规则：① Restrict deletions；② Block force pushes；③ Require a pull request before merging，要求至少 1 名其他组员审批；④ Require status checks to pass，必需检查为 ci。 |
 | 组长直接 `git push origin main` 被拒的终端输出 | 见下方实际终端输出。GitHub 返回 GH013，明确提示必须通过 PR 修改 main，且需要通过 ci 状态检查。 |
 | 第一轮：失败的 PR 运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39454757987 |
 | 第一轮：修复后通过的 PR 运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39456563807 |
@@ -37,6 +37,7 @@
 | 未合入分支上的 tag 被 release gate 拒绝的运行 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713593313 |
 | Release v1.0.0 | https://github.com/Qiyao-25/ops-lab1-9/releases/tag/v1.0.0 |
 | Release v1.0.1 | https://github.com/Qiyao-25/ops-lab1-9/releases/tag/v1.0.1 |
+| 任务 2：下载 main 制品并追溯 | [ci #32](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39754271411)，artifact ID 12414887025；下载、解压后 trace 退出码 0，见 [输出](evidence/trace-ci32.txt)。 |
 
 [main e3e5e33] test: direct push
 Enumerating objects: 1, done.
@@ -130,19 +131,26 @@ v1.0.1
 {"version":"1.0.0","commit":"0e68161b2924d975d970e3ca9c97b0935519f754","build_no":"1","go":"go1.26.9"}
 ```
 
+### 发布顺序核对与补充复测
+
+v1.0.0 与 v1.0.1 均指向 PR #6 的提交。v1.0.1 发布时间为 2026-10-22 12:42:26+08:00，而准备发布的 [PR #10](https://github.com/Qiyao-25/ops-lab1-9/pull/10) 于 12:47:29+08:00 才合入，因此 v1.0.1 未包含该新改动。此处如实保留；不移动、不删除、不复用已发布 tag。准备以增强版本接口测试的改动经 PR、审批、合入后发布 v1.0.2，并补充新版本追溯和回退；目前尚未发布，是否认可其补足任务 6 指定步骤由教师核验。
+
+2026-10-23 复测：直接使用原 Release 附件，先运行 1.0.1，再在同一仅绑定 127.0.0.1 的端口切换为 1.0.0，得到上列两次 /version 内容；每次停止自己启动的进程后再切换。两个压缩包的哈希与表中一致，两个 trace 均退出 0。见 [复测记录](evidence/local-validation.json)、[v1.0.0 trace](evidence/trace-v1.0.0.txt)、[v1.0.1 trace](evidence/trace-v1.0.1.txt)。
+
 ## 5. 数据
 
 时间均从 GitHub 页面读取，并注明时区。
 
-第一轮 gate 演练的时间线：
+第一轮 gate 演练的时间线（北京时间，精确到秒；提交时间不等同于服务器收到推送的时间）：
 
-| 事件 | 时间 | 链接 |
+| 事件 | 时间 | 链接或依据 |
 |---|---|---|
-| 发起 PR | OCT 21, 2026, 00:08 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/pull/4 |
-| 第一次 `ci` 失败（运行结束） | OCT 21, 2026, 00:08 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39454757987 |
-| 推送修复提交 | OCT 21, 2026, 00:17 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/pull/4/changes/ce000f59958f4e8c2b3e32ccfefb1f343c0ef849 |
-| `ci` 通过（运行结束） | OCT 21, 2026, 00:20 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39456563807 |
-| 合入 main | OCT 21, 2026, 00:34 GMT+8 | https://github.com/Qiyao-25/ops-lab1-9/pull/4 |
+| 发起 PR #4 | 2026-10-21 00:08:09+08:00 | [PR #4](https://github.com/Qiyao-25/ops-lab1-9/pull/4) 的 created_at |
+| 失败 CI 触发 / 结束 | 00:08:14 / 00:08:26+08:00 | [ci #8](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39454757987) |
+| 修复提交的提交时间 | 00:17:24+08:00 | [修复提交](https://github.com/Qiyao-25/ops-lab1-9/pull/4/commits/ce000f59958f4e8c2b3e32ccfefb1f343c0ef849) 的 committer 时间 |
+| 修复 CI 触发 / 结束 | 00:20:28 / 00:20:48+08:00 | [ci #9](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39456563807) |
+| 另一成员批准 | 00:32:18+08:00 | PR #4，Qiyao-25 的 APPROVED 记录 |
+| squash 合入 main | 00:34:15+08:00 | PR #4 merged_at；提交 eee7836dcea975d3281df198c1bd62c03cfff9a6 |
 
 提交到发布的间隔，至少记录三个合入的 PR：
 
@@ -152,87 +160,125 @@ v1.0.1
 | #6 | OCT 21, 2026, 09:56 GMT+8 | OCT 22, 2026, 10:44 GMT+8 | v1.0.0：OCT 22, 2026, 10:46 GMT+8 | 约 24 小时 50 分 |
 | #8 | OCT 21, 2026, 11:33 GMT+8 | OCT 21, 2026, 23:20 GMT+8 | v1.0.0：OCT 22, 2026, 10:46 GMT+8 | 约 23 小时 13 分 |
 
-`ci` 工作流的运行时长（从 Actions 页面读取），至少 5 次，全部列出，不要只给出平均值：
+工作流运行时长：以下保留 2026-10-22 17:17:46+08:00 之前的历史快照，共 32 次 ci 和 3 次 release，均为 attempt 1；2026-10-23 的在线补充另列。统一使用 updated_at − created_at 的墙钟时间，含调度和收尾开销；不是 CPU 时间。若后续重跑，另列 attempt，不覆盖这份原始快照。
 
-| 运行 | 事件（PR / push） | 时长 | 备注 |
+| 运行 | 事件 | 时长 | 结果与备注 |
 |---|---|---|---|
-| ci #1 | push（07885bd） | 44 s | 首次运行，Go 模块缓存未命中 |
-| ci #2 | pull_request | 20 s | |
-| ci #3 | push（3f02f9b） | 16 s | PR #1 合入后 |
-| ci #4 | pull_request | 14 s | |
-| ci #5 | push（3bd8d71） | 20 s | PR #2 合入后 |
-| ci #6 | pull_request | 19 s | |
-| ci #7 | push（fb5be4f） | 20 s | PR #3 合入后 |
-| ci #8 | pull_request | 12 s | |
-| ci #9 | pull_request（ce000f5） | 20 s | PR #4 第一轮，失败 |
-| ci #10 | push（eee7836） | 20 s | PR #4 修复合入后 |
-| ci #11 | pull_request | 20 s | |
-| ci #12 | push（4913670） | 27 s | PR #5 合入后 |
-| ci #13 | pull_request | 16 s | |
-| ci #14 | pull_request（1f3b834） | 13 s | 第二轮：注入缺陷 |
-| ci #15 | pull_request（169c944） | 20 s | 第二轮：补测试，失败 |
-| ci #16 | pull_request（821d5d7） | 16 s | 第二轮：撤销缺陷 |
-| ci #17 | pull_request | 12 s | |
-| ci #18 | push（2b1c08c） | 19 s | PR #8 合入后 |
-| ci #19 | push（cb6aefc） | 25 s | PR #7 合入后 |
-| ci #20 | push（0e68161） | 23 s | PR #6 合入后，含 package 步骤 |
-| ci #21 | pull_request | 14 s | |
-| ci #22 | pull_request | 16 s | |
-| ci #23 | push（5506cbe） | 17 s | PR #10 合入后 |
-| ci #24 | pull_request | 15 s | |
-| release #1 | push（0e68161） | 16 s | 发布 v1.0.0 |
-| release #2 | push（73ee6af） | 8 s | 未合入分支上的 tag，被 gate 拒绝 |
-| release #3 | push（0e68161） | 23 s | 发布 v1.0.1 |
+| [ci #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39383173108) | push | 44 s | success； |
+| [ci #2](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39410831475) | pull_request | 20 s | success； |
+| [ci #3](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39411996609) | push | 16 s | success； |
+| [ci #4](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39414745281) | pull_request | 14 s | success； |
+| [ci #5](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39415231970) | push | 20 s | success； |
+| [ci #6](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39416746594) | pull_request | 19 s | success； |
+| [ci #7](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39416914626) | push | 20 s | success； |
+| [ci #8](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39454757987) | pull_request | 12 s | failure；第一轮测试失败 |
+| [ci #9](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39456563807) | pull_request | 20 s | success；第一轮修复通过 |
+| [ci #10](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39458610700) | push | 20 s | success； |
+| [ci #11](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39463619809) | pull_request | 20 s | success； |
+| [ci #12](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39464180284) | push | 27 s | success； |
+| [ci #13](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39530419549) | pull_request | 16 s | success； |
+| [ci #14](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535035335) | pull_request | 13 s | success；第二轮缺陷漏检 |
+| [ci #15](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535181115) | pull_request | 20 s | failure；第二轮补测试失败 |
+| [ci #16](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39535403658) | pull_request | 16 s | success；第二轮修复通过 |
+| [ci #17](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39539267635) | pull_request | 12 s | success； |
+| [ci #18](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39624800252) | push | 19 s | success； |
+| [ci #19](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39624847247) | push | 25 s | success； |
+| [ci #20](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713022852) | push | 23 s | success； |
+| [ci #21](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39714221823) | pull_request | 14 s | success； |
+| [ci #22](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39716100651) | pull_request | 16 s | success； |
+| [ci #23](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39724341711) | push | 17 s | success； |
+| [ci #24](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39725330504) | pull_request | 15 s | success； |
+| [ci #25](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39741348128) | pull_request | 18 s | success； |
+| [ci #26](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39743818667) | push | 19 s | success； |
+| [ci #27](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39744456229) | pull_request | 21 s | success； |
+| [ci #28](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39747810023) | pull_request | 16 s | success； |
+| [ci #29](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39753237966) | pull_request | 20 s | success； |
+| [ci #30](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39753656914) | push | 21 s | success； |
+| [ci #31](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39754102168) | pull_request | 14 s | success； |
+| [ci #32](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39754271411) | push | 16 s | success； |
+| [release #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034) | push | 16 s | success；v1.0.0 |
+| [release #2](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713593313) | push | 8 s | failure；发布 gate 拒绝 |
+| [release #3](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39723834091) | push | 23 s | success；v1.0.1 |
+
+32 次 ci 中位数 19 s、范围 12～44 s；其中 19 次 PR 运行中位数 16 s，13 次 main push 中位数 20 s。事件类型的步骤不同，不能把两者时长差全部归因于缓存。第 5 节原“ci #9 失败”已纠正为 ci #8 失败、ci #9 修复通过。
+
+### O2 在线补充：缓存开启与关闭各 5 次
+
+实验 PR：[#15](https://github.com/Qiyao-25/ops-lab1-9/pull/15)，该 PR 不合并。先提交实验前预期，再测 cache:true，随后只改为 cache:false；基线、运行事件和应用代码保持一致。统一计时边界及 UTC 起止时间见 [完整说明](docs/CACHE-RESULTS.md)，原始数据见 [JSON](evidence/cache-comparison.json)。
+
+| cache | 运行 / attempt | 工作流计时 | job 计时 | setup-go / vet / test | 缓存结果 | runner 镜像版本 |
+|---|---|---|---|---|---|---|
+| true | [ci #33 / 1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39938656519/attempts/1) | 12 s | 8 s | 1/1/1 s | hit | 20261012.334.1 |
+| true | [ci #33 / 2](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39938656519/attempts/2) | 21 s | 17 s | 3/5/1 s | hit | 20261012.334.1 |
+| true | [ci #33 / 3](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39938656519/attempts/3) | 19 s | 15 s | 2/7/1 s | hit | 20261012.334.1 |
+| true | [ci #33 / 4](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39938656519/attempts/4) | 22 s | 18 s | 4/5/2 s | hit | 20261012.334.1 |
+| true | [ci #33 / 5](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39938656519/attempts/5) | 15 s | 11 s | 1/3/1 s | hit | 20261012.334.1 |
+| false | [ci #34 / 1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39939386365/attempts/1) | 29 s | 25 s | 1/15/3 s | disabled | 20261012.334.1 |
+| false | [ci #34 / 2](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39939386365/attempts/2) | 29 s | 25 s | 1/16/2 s | disabled | 20261012.334.1 |
+| false | [ci #34 / 3](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39939386365/attempts/3) | 32 s | 27 s | 1/17/3 s | disabled | 20261012.334.1 |
+| false | [ci #34 / 4](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39939386365/attempts/4) | 32 s | 28 s | 1/19/3 s | disabled | 20261012.334.1 |
+| false | [ci #34 / 5](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39939386365/attempts/5) | 34 s | 28 s | 1/18/3 s | disabled | 20261012.334.1 |
+
+开启缓存的工作流计时为 [12.0, 21.0, 19.0, 22.0, 15.0] s，中位数 19 s；关闭缓存为 [29.0, 29.0, 32.0, 32.0, 34.0] s，中位数 32 s。job 计时中位数分别为 15 s 和 27 s。以关闭缓存组中位数为基准，本次开启缓存的工作流计时减少约 40.6%。 这是相同 runner 镜像与固定 Go 下的 5+5 次小样本，顺序执行和共享 runner 噪声限制了因果推广，不能只用一次冷启动或把历史 PR/push 混在一起推断收益。
 
 ## 6. 分析问题
 
-每题先列出所用数据（可引用上面的表），再用一段话（4～8 句）写出结论，并说明结论的成立条件。
+**问题 1：gate 的收益与成本。**
 
-**问题 1：gate 的收益与成本。** 两轮演练中，gate 拦住了什么，没有拦住什么？用第 5 节的时间线计算：第一轮因失败多花了多少时间，其中等待 `ci` 的时间和人工修改的时间各占多少？一次 `ci` 大约需要多久，在“提交到发布的间隔”中占多大比例？第二轮补充测试之后，还有哪类问题是测试本身无法发现的？
+数据：第一轮 PR #4，ci #8 失败后 ci #9 修复通过；第二轮 PR #7，ci #14 漏检、#15 补测试失败、#16 修复通过；时间与运行链接见第 3、5 节。
 
-<填写>
+第一轮的自动检查拦住了已有测试能发现的缺陷，人工审批则是独立的另一道合入条件；第二轮最初测试全绿却包含双周对双周的缺陷，证明自动门禁只覆盖已编码的断言。将“失败结果到修复验证成功”定义为返工窗口，00:08:26 至 00:20:48 共 12 分 22 秒，其中失败结果到修复提交记录为 8 分 58 秒，提交记录到第二次 CI 触发为 3 分 4 秒，修复 CI 本身为 20 秒；前两段含人工处理、提交和推送等待，日志不能分离纯编码工时或真实排队时长。第一轮失败检查 12 秒、修复检查 20 秒，实际两次 CI 共 32 秒，但缺少“没有失败会怎样”的反事实，不能精确计算失败净增加的全部时间。32 次 CI 的中位数为 19 秒，相比第 5 节三个 PR 约 24～35 小时的提交到发布间隔，仅约 0.015%～0.023%，本组样本中人工审批、协作和发布等待更显著。补测试后门禁能够拦住已补充的双周缺陷，仍不能单靠这些单元测试识别需求理解错误、权限与安全、真实环境性能及未建模的兼容性问题。以上判断只适用于本组这两轮演练和本次共享 runner 的小样本，不能推为团队长期效率或对所有缺陷的保证。
 
-**问题 2：PR 中的构建与 main 上的构建。** 在 PR 触发的运行日志中，`github.sha` 与 `pull_request.head.sha` 是否相同？它们能否在 main 的历史中找到？答案与合并方式有关，请写明本组使用的方式。合并之后，main 上这次改动的提交号是哪个？据此说明，为什么待发布的制品只能从 main 上的提交或 tag 构建。
+**问题 2：PR 中的构建与 main 上的构建。**
 
-<填写>
+数据：[ci #9 日志](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39456563807) 打印 event_name=pull_request、ref=refs/pull/4/merge、github.sha=87c3b2d01cd26e518d76fb453f9ba9e572d5a93b、pull_request.head.sha=ce000f59958f4e8c2b3e32ccfefb1f343c0ef849；[PR #4](https://github.com/Qiyao-25/ops-lab1-9/pull/4) squash 后 main 提交为 eee7836dcea975d3281df198c1bd62c03cfff9a6。
 
-**问题 3：可重复构建。** 在本地同一个提交上按下表构建，记录哈希值。④、⑤ 需临时去掉 Makefile 中 tar 的 `--mtime=@0`，完成后用 `git checkout -- Makefile` 恢复，不要提交。
+PR 中 github.sha 是平台构造的临时合并提交，与分支 head.sha 不同，CI 验证的是该分支与当时基线组合后的结果。本组使用 squash 合并，原来的分支提交和临时合并提交都不在当前 main 历史中，合入后生成了新的 eee7836 提交；在本地对 origin/main 的提交列表逐项核对也符合这一点。main push 的 ci #10 针对这个新的 main 提交运行，不能用 PR 的绿色状态替代其制品来源。当前 ci 只在 main push 打包，因此用于后续发布的来源能对应已审批合入的 main 历史；release gate 又限制版本 tag 必须指向该历史中的提交。临时 PR 制品可能包含尚未合入的工作或较旧的基线，直接发布会失去“制品对应已合入代码”的保证。这些 SHA 的关系取决于本组的 squash 方式和 pull_request 事件语义，若改为 merge 或 rebase 合并，应重新检查祖先关系，而不是套用本组结果。
+
+**问题 3：可重复构建。**
+
+实验时间为 2026-10-23；同一提交 a04614b0ec47bdcbbbedd355ac6454419e391b28，Go 1.26.9，linux/amd64。固定输入：VERSION=1.0.0、BUILD_NO=100、RUN_ID=local-repro-20261023、COMMIT=上述 SHA；③仅变更 BUILD_NO。④、⑤在隔离副本临时修改 Makefile，实验结束已逐字恢复，Git 工作区重新干净。[原始测量](evidence/reproducibility.json)。
 
 | 构建 | 条件 | 二进制 sha256 | tar.gz sha256 |
 |---|---|---|---|
-| ① | `make package`，`VERSION`、`BUILD_NO`、`RUN_ID`、`COMMIT` 均指定固定值 | <填写> | <填写> |
-| ② | 与 ① 完全相同，再构建一次 | <填写> | <填写> |
-| ③ | 仅将 `BUILD_NO` 换成另一个值 | <填写> | <填写> |
-| ④ | 去掉 `--mtime=@0`，其余同 ① | <填写> | <填写> |
-| ⑤ | 同 ④，间隔几秒后再构建一次 | <填写> | <填写> |
-| Actions | 对 main 上的一次 push 运行执行 Re-run all jobs，比较两次尝试中 package 步骤打印的值 | <两次的值> | <两次的值> |
+| ① | 固定全部四个构建参数，工作区干净 | `4694424b73c4072392efbf18eed43ad55b40eb3c26352a9dba7903d49fc3f41b` | `5a4350341b9f491b93a3cf2403d7956266563bf34060068bc0acf9cfc2b3a380` |
+| ② | 与 ① 完全相同 | `4694424b73c4072392efbf18eed43ad55b40eb3c26352a9dba7903d49fc3f41b` | `5a4350341b9f491b93a3cf2403d7956266563bf34060068bc0acf9cfc2b3a380` |
+| ③ | 仅 BUILD_NO 从 100 改为 101 | `931dfa10151c0257660c3893dd1d36893c4953549554bcfb89ea95ae107d99aa` | `d7f7d2a9bdecc89218a859a22bca2e096319c4f380b651e980aa694b367203f1` |
+| ④ | 去掉 --mtime=@0，其余同 ①；Makefile 未提交 | `fa377c27dfd57f7d4e069ac39629885c74b3ea8d3fe47e6d02b8a7d4ec18902a` | `59ea4d83b3cc38925b7f8202dd9ffdfc53a4e052c7c096537403cdd0bb0a29a7` |
+| ⑤ | 同 ④，间隔 3 秒 | `fa377c27dfd57f7d4e069ac39629885c74b3ea8d3fe47e6d02b8a7d4ec18902a` | `9888de09b247b05b30d5874b9714bd7934e765c5f5d49bde2f894353fa5ccd07` |
+| Actions attempt 1 | main ci #32，run_id=39754271411 | a5082c805b860b6cde24208d203aa36bba544e9f547d8f2845cb8e9caeeec2ed | f3704fd7a57e7951e8ede14eb8a8ca28d85029c2072f4ab54e3ebbe8910bf558 |
+| [Actions attempt 2](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39754271411/attempts/2) | 同一 run_id=39754271411、构建号 32 的完整重跑 | a5082c805b860b6cde24208d203aa36bba544e9f547d8f2845cb8e9caeeec2ed | f3704fd7a57e7951e8ede14eb8a8ca28d85029c2072f4ab54e3ebbe8910bf558 |
 
-哪些相同、哪些不同，原因分别是什么？④ 的二进制文件与 ① 是否相同？如果不同，请结合任务 0 中看到的 vcs 信息分析。据此说明制品中应当包含什么、不应包含什么。另外，`release` 在同一个提交上再次编译，而没有直接发布 `ci` 产出的主干制品：为什么这样做？这与 L-05 第 11 页的“一次构建、多处部署”是否冲突，代价是什么？
+①、②二进制与压缩包均相同，说明在本次固定源码、构建参数、工具链、平台、Git 元数据和归档规则的条件下可重复；③把构建号注入二进制并写入 BUILD_INFO，因此两种哈希都变了。④、⑤二进制相同而压缩包不同，因为未固定的文件修改时间进入 tar；④二进制又与①不同，是因为修改 Makefile 使 Go 自动记录的 vcs.modified 从 false 变为 true，并影响主模块版本信息，而非 tar 直接改写二进制。追溯信息应保留版本、构建号、运行 ID、源码提交、工具链和可核对的构建条件，不应混入无必要的墙钟构建时间或随机值，也不能把未提交工作伪装为只使用某一干净提交。额外控制实验表明 Git 标签集合同样属于有效输入：在原 v1.0.0 提交、相同 Go 与编译参数下，当前同时存在 v1.0.1 标签时，Go 主模块版本成为 v1.0.1，重建包哈希为 15dec84b6f2dc4711b12f7fcce061041aefe22abc0abed5e6b9601ba9d3979e1；仅在隔离副本临时隐藏该后来增加的标签后，主模块版本回到 v1.0.0，二进制和压缩包均与原 Release 完全相同，随后已恢复本地标签，未改 GitHub。实验中的 release 重新编译，是为了把正式版本号和该次发布构建号注入程序，而 main 制品使用 0.0.0-main 及 CI 构建号；这些输入不同，不能直接重命名附件就获得相同程序身份。这种重新编译与严格的“一次构建、多处部署”不一致，增加了耗时、环境漂移和重复验证成本；正式系统可选择先构建不可变制品再晋级部署，或把可变发布元数据移出程序本体，并仍固定全部有效构建输入。同一 main CI #32 在 attempt 1 与 attempt 2 的二进制、归档哈希也分别一致，支持在这两次实测输入下的重复构建；两次使用相同 run_id 和构建号，run_attempt 变化，不能将该结果扩大为任意 runner 镜像、标签集合或工具链条件下都一致。
 
-<填写>
+Actions 重跑于 2026-10-23 18:22:08+08:00 开始，18:22:49+08:00 完成最后一个 job，计时 41 s；job 自身为 35 s。本表比较的是 package 步骤实际打印的哈希，见 [第二次结果](evidence/ci32-attempt2-summary.json)。
 
-**问题 4：发布与回退。** 假设 v1.0.1 发布后发现缺陷，应当如何处理？为什么不应删除 v1.0.1 的 tag、再用同一版本号重新发布？任务 6 中将服务从 v1.0.1 切换回 v1.0.0 时，使用的是哪个文件，是否需要重新构建？请用两次 `/version` 的输出说明。如果改为从源码重新构建 v1.0.0，得到的文件与原附件是否相同（参考问题 3）？最后，如果有人删除 v1.0.0 的附件，换上一个新文件和对应的新 `.sha256`，`trace.sh` 能否发现？本组在第 4 节记录的值能否发现？可以查阅 GitHub 的 Immutable releases 设置的用途。
+额外标签对照见 [原发布二进制信息](evidence/published-build-metadata.txt)、[含后加标签的重建信息](evidence/rebuilt-build-metadata.txt)、[隔离标签对照](evidence/tag-sensitive-rebuild.json)。Go 会从版本控制标签/提交写入主模块版本的机制见 [Go 官方说明](https://go.dev/doc/go1.24#go-command)。
 
-<填写>
+**问题 4：发布与回退。**
+
+数据：第 4 节两次 /version 及 [本次复测](evidence/local-validation.json)；v1.0.0 原附件哈希为 4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c，复测仍一致；问题 3 的额外重建/标签对照提供了“重新编译是否同一文件”的实际数据。
+
+若 v1.0.1 发布后有缺陷，应先把运行入口切回经过验证的 v1.0.0 原附件，再经修复、PR、审批和检查发布新的版本号，并在旧版本说明中交代问题。不能删除 v1.0.1 tag 再复用同一版本号，否则同一名字可能对应不同字节，下载缓存、校验值和故障追溯都会失去稳定含义。本组切回的是从 enroll-conflict_1.0.0_linux_amd64.tar.gz 解出的 enroll-conflict 文件，没有重新构建，/version 从 version=1.0.1、build_no=3 变为 version=1.0.0、build_no=1，commit 都是 0e68161，因此本轮验证的是版本制品切换，未体现不同源码改动的回退，发布顺序问题已在第 4 节说明。从源码重新构建不必然得到同一文件：本组已测到仅增加同提交上的后续 tag 就会改变 Go 自动嵌入的模块版本，控制标签集合并固定其他输入后才复现了原二进制与归档。如果攻击者同时替换附件与对应 .sha256，且替代包中的提交仍存在并属于 main，trace.sh 可能全部通过，因为它检查的是当前提供的两份文件是否一致及提交归属，没有第三方可信的旧哈希。第 4 节发布时保存的旧哈希能够发现不同字节，但前提是该记录本身可信且未被一并修改；[Immutable releases](https://docs.github.com/en/code-security/concepts/supply-chain-security/immutable-releases) 可在发布后锁定附件与关联 tag，本组两个现有 Release 的元数据 immutable 均为 false。以上回退成立的条件是保留并验证旧制品、平台兼容且外部状态能够兼容旧程序；本示例无数据库迁移，真实系统还要单独验证数据回退条件。
 
 ## 7. 选做记录
 
-| 选做 | 完成情况与证据 |
+| 选做 | 当前状态与证据 |
 |---|---|
+| O1 容器镜像 | 本地验证完成，GitHub 发布部分待确认执行。使用 v1.0.0 的原发布二进制构建 linux/amd64 镜像，按摘要运行成功；当前本地引用为 lab1-review/enroll-conflict@sha256:cba2c1ec280b2794a0f52bb5f6bd6e755591cc775a7a4769062895a41dc611fa，输出与原附件版本/提交/构建号一致，见 [记录](evidence/local-validation.json)。已准备 release.yml 中依赖 release 的 image job，下载已发布附件、校验、不重新编译，推送 GHCR 后按 registry digest 运行并检查匿名拉取。目前没有该 job 的 GitHub 运行链接或 GHCR 发布证据，不能记为全部完成。 |
+| O2 缓存对反馈时间 | 已完成。实验前预期先提交；[PR #15](https://github.com/Qiyao-25/ops-lab1-9/pull/15) 保留不合并；cache:true/false 各 5 次，全部样本见第 5 节和 [完整分析](docs/CACHE-RESULTS.md)。工作流计时中位数分别为 19 s、32 s，本次观测减少约 40.6%；解释包含 Go 构建缓存、计时波动及小样本局限。原历史混合事件的 40%～60% 结论撤回。 |
+| O3 迁移到项目 | 已迁移到 [Python 词数项目](https://github.com/YiningZhang401/ops-lab1-o3)，详见 [迁移说明](docs/O3-MIGRATION.md)。目标项目有启用的 main 门禁、PR CI、main CI、v0.1.0 发布与非主干 tag 被拒的记录。 |
 
-| O1 容器镜像 | 已完成。基于 v1.0.0 发布制品构建镜像 `enroll-conflict:1.0.0`，镜像摘要（digest）`sha256:87b73ab26754df004dbebc26d799b3740fa0350a24d051d5e391b61db06ffc9d`，架构 `linux/amd64`（构建于 Windows x64 主机，Docker Desktop Linux engine）。`docker run --rm enroll-conflict:1.0.0 -version` 输出 `version=1.0.0 commit=0e68161b2924d975d970e3ca9c97b0935519f754 build_no=1 go=go1.26.9`，与 Release 附件一致。 |
-| O2 缓存对反馈时间的影响 | 已完成。预期：`setup-go` 开启 `cache: true` 后，Go 模块依赖被缓存，后续运行的依赖下载步骤可跳过，整体 ci 时长缩短。数据：首次运行 ci #1（无缓存）耗时 44 s；开启缓存后 ci #3～#24 的时长集中在 12～27 s，中位数约 19 s。结论：缓存使首次冷启动后的 ci 反馈时间缩短约 40%～60%，对于"提交→测试"这一高频反馈环节效果明显；但缓存只加速依赖下载，对 `go vet`/`go test` 本身的耗时无影响，因此单次 ci 仍有十几秒的下限。 |
-| O3 迁移到小组项目 | https://github.com/YiningZhang401/ops-lab1-o3 |
-
+O1 镜像 job 与 release 放在同一工作流并用 needs 连接，是因为使用 GITHUB_TOKEN 创建 Release 不会再触发另一个基于该 Release 事件的工作流；见 [GitHub 工作流触发说明](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow)。GHCR 包的初始可见性可能为私有，仓库公开不能代替实际匿名拉取检查；见 [Container registry 官方说明](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)。后续须记录实际 registry digest、运行主机架构及匿名拉取结果。
 
 ## 8. 成员贡献
 
-每位成员一行，只填写 GitHub 用户名，无需填写姓名；行数应与小组人数一致。
+按已合入 PR 与 APPROVED 记录核对，每位成员至少一个本人发起并合入的 PR。
 
 | GitHub 用户名 | 发起并合入的 PR 编号 | 审批过的 PR 编号 |
 |---|---|---|
-| Qiyao-25 | #1, #2, #3 | #4, #5, #10 |
+| Qiyao-25 | #1, #2, #3 | #4, #5, #10, #12 |
 | mohanlu | #4, #5 | #1, #2, #3, #8 |
-| sjettu | #6, #10 | #7 |
-| YiningZhang401 | #7, #8 | #6 |
+| sjettu | #6, #10, #11 | #7, #14 |
+| YiningZhang401 | #7, #8, #14 | #6, #11 |
 | gulu060719 | #12 | 无 |
