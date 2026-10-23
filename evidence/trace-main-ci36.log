@@ -1,0 +1,18 @@
+== 1. 校验和
+enroll-conflict_0.0.0-main_linux_amd64.tar.gz: OK
+== 2. 制品里的 BUILD_INFO
+name=enroll-conflict
+version=0.0.0-main
+build_no=36
+run_id=39941679659
+commit=b2547a988336ac54b1d0bbde4ff94ce373a1fb8b
+go=go1.26.9
+== 3. 提交 b2547a988336ac54b1d0bbde4ff94ce373a1fb8b
+作者: Nuo Wang <2489397324@qq.com>
+时间: 2026-10-23T18:48:22+08:00
+标题: lab: complete reproducibility analysis and container verification (#16)
+主干: 该提交在 origin/main 的历史上
+指向它的 tag: （无）
+版本号: 0.0.0-main    构建号: 36
+提交页面（含关联的 PR）: https://github.com/Qiyao-25/ops-lab1-9/commit/b2547a988336ac54b1d0bbde4ff94ce373a1fb8b
+构建它的运行: https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39941679659

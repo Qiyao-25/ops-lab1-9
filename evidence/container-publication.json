@@ -1,0 +1,20 @@
+{
+  "workflow_url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39943710686",
+  "workflow_run_id": 39943710686,
+  "release_build_no": 4,
+  "image_job_url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39943710686/job/120381219018",
+  "image_reference": "ghcr.io/qiyao-25/ops-lab1-9@sha256:2c769f8fc5ea1f5a08cd106bbc6e75f15c073e28dfb4a3545f80c6dfada35603",
+  "version_output": "enroll-conflict version=1.0.2 commit=b2547a988336ac54b1d0bbde4ff94ce373a1fb8b build_no=4 go=go1.26.9",
+  "workflow_anonymous_pull": "success",
+  "workflow_image_platform": "linux/amd64",
+  "group_server_anonymous_pull": "not verified on group server; separately verified by release workflow image job",
+  "group_server_host_architecture": "x86_64",
+  "visibility_change_performed": false,
+  "public_access_evidence": "Anonymous pull succeeded in the workflow without a Docker login configuration.",
+  "workflow_runner_labels": [
+    "ubuntu-24.04"
+  ],
+  "workflow_host_architecture": "x64",
+  "workflow_architecture_evidence": "The recorded ubuntu-24.04 runner label maps to Linux/x64 in GitHub official runner specifications.",
+  "runner_specification_url": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories"
+}
