@@ -1,0 +1,16 @@
+[
+  {
+    "url": "https://github.com/Qiyao-25/ops-lab1-9/releases/download/v1.0.2/enroll-conflict_1.0.2_linux_amd64.tar.gz",
+    "http_status": 200,
+    "bytes": 4856215,
+    "sha256": "fdafd5232600bf8b1da12238d4e04e14c897334d18c48a58d6776a703d4fe779",
+    "authentication_used": false
+  },
+  {
+    "url": "https://github.com/Qiyao-25/ops-lab1-9/releases/download/v1.0.2/enroll-conflict_1.0.2_linux_amd64.tar.gz.sha256",
+    "http_status": 200,
+    "bytes": 107,
+    "sha256": "ab2512f370e79d6521d25c64f7f16b02d465f851aea112fe9c0f7f87b97f011f",
+    "authentication_used": false
+  }
+]

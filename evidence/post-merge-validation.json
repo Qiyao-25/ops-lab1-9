@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-10-23T11:02:30.295476+00:00",
+  "main_commit": "b2547a988336ac54b1d0bbde4ff94ce373a1fb8b",
+  "ci_run_id": "39941679659",
+  "ci_build_no": "36",
+  "trace_exit": 0,
+  "archive_sha256": "9a7a30d9862f8b7ab36ba5eaef1026c9509e20ec9b3c77e466302acc22b117ef",
+  "binary_sha256": "a247d0972d3cb0bdca56c67abbaf496c30c5beee29fd5ed6614eb96739dfc971",
+  "build_info": "name=enroll-conflict\nversion=0.0.0-main\nbuild_no=36\nrun_id=39941679659\ncommit=b2547a988336ac54b1d0bbde4ff94ce373a1fb8b\ngo=go1.26.9\n",
+  "version_output": "enroll-conflict version=0.0.0-main commit=b2547a988336ac54b1d0bbde4ff94ce373a1fb8b build_no=36 go=go1.26.9",
+  "http_version": {
+    "version": "0.0.0-main",
+    "commit": "b2547a988336ac54b1d0bbde4ff94ce373a1fb8b",
+    "build_no": "36",
+    "go": "go1.26.9"
+  },
+  "healthz": "ok",
+  "test_service_stopped": true,
+  "container_version": "enroll-conflict version=0.0.0-main commit=b2547a988336ac54b1d0bbde4ff94ce373a1fb8b build_no=36 go=go1.26.9",
+  "container_image_id": "sha256:d88e82779f0fc786b8f49dbed1dbd197b5aa85c4a9c5656df6a7a4b7a1097889",
+  "container_platform": "linux/amd64",
+  "original_server_repository_unchanged": true,
+  "github_run_url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39941679659",
+  "registry_publish_performed": false,
+  "local_container_image_id_is_not_registry_digest": true
+}

@@ -1,0 +1,101 @@
+{
+  "checked_at": "2026-10-23T11:16:54.292502+00:00",
+  "host_system": "Linux",
+  "host_architecture": "x86_64",
+  "release_run_id": "39943710686",
+  "release_build_no": "4",
+  "release_commit": "b2547a988336ac54b1d0bbde4ff94ce373a1fb8b",
+  "releases": {
+    "1.0.0": {
+      "archive_sha256": "4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c",
+      "binary_sha256": "43395a2656863ae0ffde4a9c554b7ef1809861b43bdeb523eb4487cb639ce165",
+      "build_info": {
+        "name": "enroll-conflict",
+        "version": "1.0.0",
+        "build_no": "1",
+        "run_id": "39713235034",
+        "commit": "0e68161b2924d975d970e3ca9c97b0935519f754",
+        "go": "go1.26.9"
+      },
+      "trace_exit": 0,
+      "version_output": "enroll-conflict version=1.0.0 commit=0e68161b2924d975d970e3ca9c97b0935519f754 build_no=1 go=go1.26.9"
+    },
+    "1.0.1": {
+      "archive_sha256": "1f68ffc908cef53991bbc55697bd20b0de4ef5b9df39c8d59b4a56892587e0f5",
+      "binary_sha256": "5b31ef93b40674ac9a5231809df9f30c19ba44fded4365b3fe32547763a93375",
+      "build_info": {
+        "name": "enroll-conflict",
+        "version": "1.0.1",
+        "build_no": "3",
+        "run_id": "39723834091",
+        "commit": "0e68161b2924d975d970e3ca9c97b0935519f754",
+        "go": "go1.26.9"
+      },
+      "trace_exit": 0,
+      "version_output": "enroll-conflict version=1.0.1 commit=0e68161b2924d975d970e3ca9c97b0935519f754 build_no=3 go=go1.26.9"
+    },
+    "1.0.2": {
+      "archive_sha256": "fdafd5232600bf8b1da12238d4e04e14c897334d18c48a58d6776a703d4fe779",
+      "binary_sha256": "20c997e673bb6d3892fc2f3e18a6588bd6fa357a7ea3a0bc65143c13646bc2b1",
+      "build_info": {
+        "name": "enroll-conflict",
+        "version": "1.0.2",
+        "build_no": "4",
+        "run_id": "39943710686",
+        "commit": "b2547a988336ac54b1d0bbde4ff94ce373a1fb8b",
+        "go": "go1.26.9"
+      },
+      "trace_exit": 0,
+      "version_output": "enroll-conflict version=1.0.2 commit=b2547a988336ac54b1d0bbde4ff94ce373a1fb8b build_no=4 go=go1.26.9"
+    }
+  },
+  "rollback": [
+    {
+      "phase": "original-required-pair",
+      "version": {
+        "version": "1.0.1",
+        "commit": "0e68161b2924d975d970e3ca9c97b0935519f754",
+        "build_no": "3",
+        "go": "go1.26.9"
+      }
+    },
+    {
+      "phase": "original-required-pair",
+      "version": {
+        "version": "1.0.0",
+        "commit": "0e68161b2924d975d970e3ca9c97b0935519f754",
+        "build_no": "1",
+        "go": "go1.26.9"
+      }
+    },
+    {
+      "phase": "corrected-release-pair",
+      "version": {
+        "version": "1.0.2",
+        "commit": "b2547a988336ac54b1d0bbde4ff94ce373a1fb8b",
+        "build_no": "4",
+        "go": "go1.26.9"
+      }
+    },
+    {
+      "phase": "corrected-release-pair",
+      "version": {
+        "version": "1.0.0",
+        "commit": "0e68161b2924d975d970e3ca9c97b0935519f754",
+        "build_no": "1",
+        "go": "go1.26.9"
+      }
+    }
+  ],
+  "artifact_transfer": {
+    "1.0.0": "existing original Release download in /root/demo",
+    "1.0.1": "existing original Release download in /root/demo",
+    "1.0.2": "anonymous public download on local workstation, verified against GitHub asset digest, then transferred via SFTP"
+  },
+  "server_direct_download_note": "The direct public Release download timed out after 180 seconds; no partial archive was used.",
+  "test_services_stopped": true,
+  "image_reference": "ghcr.io/qiyao-25/ops-lab1-9@sha256:2c769f8fc5ea1f5a08cd106bbc6e75f15c073e28dfb4a3545f80c6dfada35603",
+  "group_server_container_verification_error": "Command '['docker', '--config', '/tmp/lab1-anonymous-pp4hq2bo', 'pull', 'ghcr.io/qiyao-25/ops-lab1-9@sha256:2c769f8fc5ea1f5a08cd106bbc6e75f15c073e28dfb4a3545f80c6dfada35603']' timed out after 60 seconds",
+  "anonymous_pull": "not verified on group server; separately verified by release workflow image job",
+  "original_server_repository_unchanged": true
+}

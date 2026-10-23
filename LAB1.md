@@ -1,6 +1,6 @@
 # 实验 1 记录：第 9 组
 
-本文件为待提交稿，补充实验于 2026-10-23 在组内 Linux 主机完成。GitHub CI 重跑及 O2 缓存对照已完成；GHCR 发布与 v1.0.2 发布尚未完成，以下明确标注；未取得的数据不作结论。main 受保护，修改仍通过 PR 和其他组员审批合入。
+补充实验于 2026-10-23 完成，相关代码及此前记录已通过 PR #16 审批并合入 main。main CI #36、v1.0.2 Release 和 GHCR 镜像发布均成功；原版本与修订版的追溯、运行及回退结果见第 4、9 节。O1 镜像、O2 缓存对照及 O3 迁移证据均已补齐。main 受保护，收尾记录仍通过独立 PR 和其他组员审批合入。
 
 ## 1. 基本信息
 
@@ -133,7 +133,7 @@ v1.0.1
 
 ### 发布顺序核对与补充复测
 
-v1.0.0 与 v1.0.1 均指向 PR #6 的提交。v1.0.1 发布时间为 2026-10-22 12:42:26+08:00，而准备发布的 [PR #10](https://github.com/Qiyao-25/ops-lab1-9/pull/10) 于 12:47:29+08:00 才合入，因此 v1.0.1 未包含该新改动。此处如实保留；不移动、不删除、不复用已发布 tag。准备以增强版本接口测试的改动经 PR、审批、合入后发布 v1.0.2，并补充新版本追溯和回退；目前尚未发布，是否认可其补足任务 6 指定步骤由教师核验。
+v1.0.0 与 v1.0.1 均指向 PR #6 的提交。v1.0.1 发布时间为 2026-10-22 12:42:26+08:00，而准备发布的 [PR #10](https://github.com/Qiyao-25/ops-lab1-9/pull/10) 于 12:47:29+08:00 才合入，因此 v1.0.1 未包含该新改动。此处如实保留；不移动、不删除、不复用已发布 tag。增强版本接口测试等改动已经 [PR #16](https://github.com/Qiyao-25/ops-lab1-9/pull/16) 审批合入，随后于 2026-10-23 19:06:18+0800 发布修订版 [v1.0.2](https://github.com/Qiyao-25/ops-lab1-9/releases/tag/v1.0.2)，已补充新版本追溯和回退。v1.0.1 的 Release 说明已添加更正及修订版链接；旧标签和附件保持原样。是否认可其补足任务 6 指定 v1.0.1 步骤由教师核验。
 
 2026-10-23 复测：直接使用原 Release 附件，先运行 1.0.1，再在同一仅绑定 127.0.0.1 的端口切换为 1.0.0，得到上列两次 /version 内容；每次停止自己启动的进程后再切换。两个压缩包的哈希与表中一致，两个 trace 均退出 0。见 [复测记录](evidence/local-validation.json)、[v1.0.0 trace](evidence/trace-v1.0.0.txt)、[v1.0.1 trace](evidence/trace-v1.0.1.txt)。
 
@@ -259,17 +259,17 @@ Actions 重跑于 2026-10-23 18:22:08+08:00 开始，18:22:49+08:00 完成最后
 
 数据：第 4 节两次 /version 及 [本次复测](evidence/local-validation.json)；v1.0.0 原附件哈希为 4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c，复测仍一致；问题 3 的额外重建/标签对照提供了“重新编译是否同一文件”的实际数据。
 
-若 v1.0.1 发布后有缺陷，应先把运行入口切回经过验证的 v1.0.0 原附件，再经修复、PR、审批和检查发布新的版本号，并在旧版本说明中交代问题。不能删除 v1.0.1 tag 再复用同一版本号，否则同一名字可能对应不同字节，下载缓存、校验值和故障追溯都会失去稳定含义。本组切回的是从 enroll-conflict_1.0.0_linux_amd64.tar.gz 解出的 enroll-conflict 文件，没有重新构建，/version 从 version=1.0.1、build_no=3 变为 version=1.0.0、build_no=1，commit 都是 0e68161，因此本轮验证的是版本制品切换，未体现不同源码改动的回退，发布顺序问题已在第 4 节说明。从源码重新构建不必然得到同一文件：本组已测到仅增加同提交上的后续 tag 就会改变 Go 自动嵌入的模块版本，控制标签集合并固定其他输入后才复现了原二进制与归档。如果攻击者同时替换附件与对应 .sha256，且替代包中的提交仍存在并属于 main，trace.sh 可能全部通过，因为它检查的是当前提供的两份文件是否一致及提交归属，没有第三方可信的旧哈希。第 4 节发布时保存的旧哈希能够发现不同字节，但前提是该记录本身可信且未被一并修改；[Immutable releases](https://docs.github.com/en/code-security/concepts/supply-chain-security/immutable-releases) 可在发布后锁定附件与关联 tag，本组两个现有 Release 的元数据 immutable 均为 false。以上回退成立的条件是保留并验证旧制品、平台兼容且外部状态能够兼容旧程序；本示例无数据库迁移，真实系统还要单独验证数据回退条件。
+若 v1.0.1 发布后有缺陷，应先把运行入口切回经过验证的 v1.0.0 原附件，再经修复、PR、审批和检查发布新的版本号，并在旧版本说明中交代问题。不能删除 v1.0.1 tag 再复用同一版本号，否则同一名字可能对应不同字节，下载缓存、校验值和故障追溯都会失去稳定含义。本组切回的是从 enroll-conflict_1.0.0_linux_amd64.tar.gz 解出的 enroll-conflict 文件，没有重新构建，/version 从 version=1.0.1、build_no=3 变为 version=1.0.0、build_no=1，commit 都是 0e68161，因此本轮验证的是版本制品切换，未体现不同源码改动的回退，发布顺序问题已在第 4 节说明。从源码重新构建不必然得到同一文件：本组已测到仅增加同提交上的后续 tag 就会改变 Go 自动嵌入的模块版本，控制标签集合并固定其他输入后才复现了原二进制与归档。如果攻击者同时替换附件与对应 .sha256，且替代包中的提交仍存在并属于 main，trace.sh 可能全部通过，因为它检查的是当前提供的两份文件是否一致及提交归属，没有第三方可信的旧哈希。第 4 节发布时保存的旧哈希能够发现不同字节，但前提是该记录本身可信且未被一并修改；[Immutable releases](https://docs.github.com/en/code-security/concepts/supply-chain-security/immutable-releases) 可在发布后锁定附件与关联 tag，本组 v1.0.0、v1.0.1 的 Release 元数据 immutable 均为 false。以上回退成立的条件是保留并验证旧制品、平台兼容且外部状态能够兼容旧程序；本示例无数据库迁移，真实系统还要单独验证数据回退条件。
 
 ## 7. 选做记录
 
 | 选做 | 当前状态与证据 |
 |---|---|
-| O1 容器镜像 | 本地验证完成，GitHub 发布部分待确认执行。使用 v1.0.0 的原发布二进制构建 linux/amd64 镜像，按摘要运行成功；当前本地引用为 lab1-review/enroll-conflict@sha256:cba2c1ec280b2794a0f52bb5f6bd6e755591cc775a7a4769062895a41dc611fa，输出与原附件版本/提交/构建号一致，见 [记录](evidence/local-validation.json)。已准备 release.yml 中依赖 release 的 image job，下载已发布附件、校验、不重新编译，推送 GHCR 后按 registry digest 运行并检查匿名拉取。目前没有该 job 的 GitHub 运行链接或 GHCR 发布证据，不能记为全部完成。 |
-| O2 缓存对反馈时间 | 已完成。实验前预期先提交；[PR #15](https://github.com/Qiyao-25/ops-lab1-9/pull/15) 保留不合并；cache:true/false 各 5 次，全部样本见第 5 节和 [完整分析](docs/CACHE-RESULTS.md)。工作流计时中位数分别为 19 s、32 s，本次观测减少约 40.6%；解释包含 Go 构建缓存、计时波动及小样本局限。原历史混合事件的 40%～60% 结论撤回。 |
+| O1 容器镜像 | 已完成。[release #4](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39943710686) 中的 image job 在 release 成功后下载并校验 v1.0.2 发布附件，以原二进制构建 linux/amd64 镜像，没有重新编译。已推送 `ghcr.io/qiyao-25/ops-lab1-9:v1.0.2`，实际 registry 引用为 `ghcr.io/qiyao-25/ops-lab1-9@sha256:2c769f8fc5ea1f5a08cd106bbc6e75f15c073e28dfb4a3545f80c6dfada35603`。工作流已按摘要运行并使用空 Docker 登录配置完成匿名拉取；主机架构和组内服务器复核见 [镜像证据](evidence/container-publication.json)、[最终验证](evidence/final-release-validation.json)。 |
+| O2 缓存对反馈时间 | 已完成。实验前预期先提交；[PR #15](https://github.com/Qiyao-25/ops-lab1-9/pull/15) 已关闭且未合并，实验分支和运行记录保留；cache:true/false 各 5 次，全部样本见第 5 节和 [完整分析](docs/CACHE-RESULTS.md)。工作流计时中位数分别为 19 s、32 s，本次观测减少约 40.6%；解释包含 Go 构建缓存、计时波动及小样本局限。原历史混合事件的 40%～60% 结论撤回。 |
 | O3 迁移到项目 | 已迁移到 [Python 词数项目](https://github.com/YiningZhang401/ops-lab1-o3)，详见 [迁移说明](docs/O3-MIGRATION.md)。目标项目有启用的 main 门禁、PR CI、main CI、v0.1.0 发布与非主干 tag 被拒的记录。 |
 
-O1 镜像 job 与 release 放在同一工作流并用 needs 连接，是因为使用 GITHUB_TOKEN 创建 Release 不会再触发另一个基于该 Release 事件的工作流；见 [GitHub 工作流触发说明](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow)。GHCR 包的初始可见性可能为私有，仓库公开不能代替实际匿名拉取检查；见 [Container registry 官方说明](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)。后续须记录实际 registry digest、运行主机架构及匿名拉取结果。
+O1 镜像 job 与 release 放在同一工作流并用 needs 连接，是因为使用 GITHUB_TOKEN 创建 Release 不会再触发另一个基于该 Release 事件的工作流；见 [GitHub 工作流触发说明](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow)。GHCR 包的初始可见性可能为私有，仓库公开不能代替实际匿名拉取检查；见 [Container registry 官方说明](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)。本次实际 registry digest、主机架构和匿名拉取结果已记录；匿名拉取已成功，因此未另行修改包可见性。
 
 ## 8. 成员贡献
 
@@ -277,8 +277,78 @@ O1 镜像 job 与 release 放在同一工作流并用 needs 连接，是因为�
 
 | GitHub 用户名 | 发起并合入的 PR 编号 | 审批过的 PR 编号 |
 |---|---|---|
-| Qiyao-25 | #1, #2, #3 | #4, #5, #10, #12 |
-| mohanlu | #4, #5 | #1, #2, #3, #8 |
+| Qiyao-25 | #1, #2, #3, #16 | #4, #5, #10, #12 |
+| mohanlu | #4, #5 | #1, #2, #3, #8, #16 |
 | sjettu | #6, #10, #11 | #7, #14 |
 | YiningZhang401 | #7, #8, #14 | #6, #11 |
 | gulu060719 | #12 | 无 |
+
+
+## 9. PR #16 合并后的收尾验证
+
+[PR #16](https://github.com/Qiyao-25/ops-lab1-9/pull/16) 于 2026-10-23 18:47:08+08:00 获得 mohanlu 审批，18:48:22+08:00 合入 main，对应提交 `b2547a988336ac54b1d0bbde4ff94ce373a1fb8b`。[main CI #36](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39941679659) 成功；本次验证使用该运行下载的原产物，版本为 `0.0.0-main`，构建号 36，Go 为 go1.26.9。
+
+2026-10-23 19:02+08:00，在独立目录完成以下验证：校验和及 `scripts/trace.sh` 通过，提交位于 origin/main 历史；`GET /version` 返回相同的版本、提交和构建号；`GET /healthz` 返回 ok。使用相同二进制构建 linux/amd64 本地容器，容器版本输出与直接运行一致。临时 HTTP 服务已停止，原服务器仓库及其 LAB1.md 未覆盖。详见 [结构化记录](evidence/post-merge-validation.json) 和 [追溯日志](evidence/trace-main-ci36.log)。
+
+| 项目 | SHA-256 |
+|---|---|
+| CI #36 二进制 | `a247d0972d3cb0bdca56c67abbaf496c30c5beee29fd5ed6614eb96739dfc971` |
+| CI #36 归档 | `9a7a30d9862f8b7ab36ba5eaef1026c9509e20ec9b3c77e466302acc22b117ef` |
+
+本地容器 image ID 仅标识本地镜像，不作为 GHCR registry digest。[缓存实验 PR #15](https://github.com/Qiyao-25/ops-lab1-9/pull/15) 已关闭且未合并，分支和运行记录保留；O2 结果已通过 PR #16 进入 main。
+
+
+### v1.0.2 正式发布、镜像与再次回退
+
+v1.0.2 以已审批合入的提交 `b2547a988336ac54b1d0bbde4ff94ce373a1fb8b` 为目标，发布时间为 2026-10-23 19:06:18+0800。tag 触发的 [release #4](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39943710686) 中，release 和 image 两个 job 均成功。
+
+| 项目 | v1.0.2 实测 |
+|---|---|
+| 关联 PR | [#16](https://github.com/Qiyao-25/ops-lab1-9/pull/16) |
+| 构建号 / run_id | 4 / 39943710686 |
+| Go / 平台 | go1.26.9 / linux/amd64 |
+| 归档 SHA-256 | `fdafd5232600bf8b1da12238d4e04e14c897334d18c48a58d6776a703d4fe779` |
+| 二进制 SHA-256 | `20c997e673bb6d3892fc2f3e18a6588bd6fa357a7ea3a0bc65143c13646bc2b1` |
+| registry digest | `ghcr.io/qiyao-25/ops-lab1-9@sha256:2c769f8fc5ea1f5a08cd106bbc6e75f15c073e28dfb4a3545f80c6dfada35603` |
+
+在本机不携带认证信息直接下载两个公开 Release 附件，HTTP 均为 200，哈希与 GitHub asset digest 一致，见 [匿名下载记录](evidence/anonymous-release-download.json)。服务器直连附件下载出现网络等待，因此通过 SFTP 将这份已验证的原附件传入独立克隆的 `dist/release/`；未重新打包。三个版本均通过校验和与 trace，v1.0.0 和 v1.0.1 的原附件哈希保持不变。运行验证于 2026-10-23 19:16:54+0800 开始，详见 [最终验证](evidence/final-release-validation.json)。
+
+修订版 trace 输出：
+
+```text
+== 1. 校验和
+enroll-conflict_1.0.2_linux_amd64.tar.gz: OK
+== 2. 制品里的 BUILD_INFO
+name=enroll-conflict
+version=1.0.2
+build_no=4
+run_id=39943710686
+commit=b2547a988336ac54b1d0bbde4ff94ce373a1fb8b
+go=go1.26.9
+== 3. 提交 b2547a988336ac54b1d0bbde4ff94ce373a1fb8b
+作者: Nuo Wang <2489397324@qq.com>
+时间: 2026-10-23T18:48:22+08:00
+标题: lab: complete reproducibility analysis and container verification (#16)
+主干: 该提交在 origin/main 的历史上
+指向它的 tag: v1.0.2
+版本号: 1.0.2    构建号: 4
+提交页面（含关联的 PR）: https://github.com/Qiyao-25/ops-lab1-9/commit/b2547a988336ac54b1d0bbde4ff94ce373a1fb8b
+构建它的运行: https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39943710686
+```
+
+修订版运行后切回原 v1.0.0，在同一仅监听本机的端口查询到：
+
+```json
+{"version":"1.0.2","commit":"b2547a988336ac54b1d0bbde4ff94ce373a1fb8b","build_no":"4","go":"go1.26.9"}
+{"version":"1.0.0","commit":"0e68161b2924d975d970e3ca9c97b0935519f754","build_no":"1","go":"go1.26.9"}
+```
+
+本次回退不仅改变版本和构建号，源码提交也从 b2547a9 切回 0e68161；使用的是保留的原 v1.0.0 二进制，未重建旧版本。原要求的 v1.0.1 → v1.0.0 也再次复核，完整四次输出均在最终验证 JSON 中，临时服务均已停止。
+
+镜像直接使用校验后的 v1.0.2 发布二进制。GitHub image job 的 `docker run --network none <registry digest> -version` 输出为：
+
+```text
+enroll-conflict version=1.0.2 commit=b2547a988336ac54b1d0bbde4ff94ce373a1fb8b build_no=4 go=go1.26.9
+```
+
+组内服务器拉取受到网络限制；按摘要运行和匿名拉取成功的证据来自上列 GitHub image job，服务器网络错误也保留在最终验证 JSON 中。 该 image job 记录的 runner 标签为 ubuntu-24.04，按 [GitHub 官方 runner 规格](https://docs.github.com/en/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories) 可核对其运行主机为 Linux/x64，构建及运行的镜像平台为 linux/amd64。 GitHub 的匿名拉取同样成功，无需额外修改包可见性。镜像证据 artifact 保留 14 天；关键引用、版本和拉取结果同时写入仓库的 [镜像证据](evidence/container-publication.json)，长期制品以 Release 附件与 GHCR 镜像为准。
