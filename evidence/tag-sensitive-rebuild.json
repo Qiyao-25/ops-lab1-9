@@ -1,0 +1,9 @@
+{
+  "isolated_clone_only": true,
+  "temporarily_hidden_tag": "v1.0.1",
+  "binary_sha256": "43395a2656863ae0ffde4a9c554b7ef1809861b43bdeb523eb4487cb639ce165",
+  "archive_sha256": "4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c",
+  "matches_published_binary": true,
+  "matches_published_archive": true,
+  "build_metadata": "dist/enroll-conflict_1.0.0_linux_amd64/enroll-conflict: go1.26.9\n\tpath\tenroll-conflict\n\tmod\tenroll-conflict\tv1.0.0\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=0e68161b2924d975d970e3ca9c97b0935519f754\n\tbuild\tvcs.time=2026-10-22T02:44:17Z\n\tbuild\tvcs.modified=false\n"
+}

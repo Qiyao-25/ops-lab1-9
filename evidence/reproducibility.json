@@ -1,0 +1,90 @@
+{
+  "utc": "2026-10-23T07:49:53.352355+00:00",
+  "source_commit": "a04614b0ec47bdcbbbedd355ac6454419e391b28",
+  "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.39",
+  "go": "go version go1.26.9 linux/amd64",
+  "fixed_inputs": {
+    "VERSION": "1.0.0",
+    "BUILD_NO": "100",
+    "RUN_ID": "local-repro-20261023",
+    "COMMIT": "a04614b0ec47bdcbbbedd355ac6454419e391b28"
+  },
+  "builds": [
+    {
+      "label": "1",
+      "build_no": "100",
+      "tar_mtime_fixed": true,
+      "binary_sha256": "4694424b73c4072392efbf18eed43ad55b40eb3c26352a9dba7903d49fc3f41b",
+      "tar_sha256": "5a4350341b9f491b93a3cf2403d7956266563bf34060068bc0acf9cfc2b3a380",
+      "vcs_lines": [
+        "build\tvcs=git",
+        "build\tvcs.revision=a04614b0ec47bdcbbbedd355ac6454419e391b28",
+        "build\tvcs.time=2026-10-22T09:17:27Z",
+        "build\tvcs.modified=false"
+      ],
+      "build_info": "name=enroll-conflict\nversion=1.0.0\nbuild_no=100\nrun_id=local-repro-20261023\ncommit=a04614b0ec47bdcbbbedd355ac6454419e391b28\ngo=go1.26.9\n",
+      "source_status": ""
+    },
+    {
+      "label": "2",
+      "build_no": "100",
+      "tar_mtime_fixed": true,
+      "binary_sha256": "4694424b73c4072392efbf18eed43ad55b40eb3c26352a9dba7903d49fc3f41b",
+      "tar_sha256": "5a4350341b9f491b93a3cf2403d7956266563bf34060068bc0acf9cfc2b3a380",
+      "vcs_lines": [
+        "build\tvcs=git",
+        "build\tvcs.revision=a04614b0ec47bdcbbbedd355ac6454419e391b28",
+        "build\tvcs.time=2026-10-22T09:17:27Z",
+        "build\tvcs.modified=false"
+      ],
+      "build_info": "name=enroll-conflict\nversion=1.0.0\nbuild_no=100\nrun_id=local-repro-20261023\ncommit=a04614b0ec47bdcbbbedd355ac6454419e391b28\ngo=go1.26.9\n",
+      "source_status": ""
+    },
+    {
+      "label": "3",
+      "build_no": "101",
+      "tar_mtime_fixed": true,
+      "binary_sha256": "931dfa10151c0257660c3893dd1d36893c4953549554bcfb89ea95ae107d99aa",
+      "tar_sha256": "d7f7d2a9bdecc89218a859a22bca2e096319c4f380b651e980aa694b367203f1",
+      "vcs_lines": [
+        "build\tvcs=git",
+        "build\tvcs.revision=a04614b0ec47bdcbbbedd355ac6454419e391b28",
+        "build\tvcs.time=2026-10-22T09:17:27Z",
+        "build\tvcs.modified=false"
+      ],
+      "build_info": "name=enroll-conflict\nversion=1.0.0\nbuild_no=101\nrun_id=local-repro-20261023\ncommit=a04614b0ec47bdcbbbedd355ac6454419e391b28\ngo=go1.26.9\n",
+      "source_status": ""
+    },
+    {
+      "label": "4",
+      "build_no": "100",
+      "tar_mtime_fixed": false,
+      "binary_sha256": "fa377c27dfd57f7d4e069ac39629885c74b3ea8d3fe47e6d02b8a7d4ec18902a",
+      "tar_sha256": "59ea4d83b3cc38925b7f8202dd9ffdfc53a4e052c7c096537403cdd0bb0a29a7",
+      "vcs_lines": [
+        "build\tvcs=git",
+        "build\tvcs.revision=a04614b0ec47bdcbbbedd355ac6454419e391b28",
+        "build\tvcs.time=2026-10-22T09:17:27Z",
+        "build\tvcs.modified=true"
+      ],
+      "build_info": "name=enroll-conflict\nversion=1.0.0\nbuild_no=100\nrun_id=local-repro-20261023\ncommit=a04614b0ec47bdcbbbedd355ac6454419e391b28\ngo=go1.26.9\n",
+      "source_status": "M Makefile"
+    },
+    {
+      "label": "5",
+      "build_no": "100",
+      "tar_mtime_fixed": false,
+      "binary_sha256": "fa377c27dfd57f7d4e069ac39629885c74b3ea8d3fe47e6d02b8a7d4ec18902a",
+      "tar_sha256": "9888de09b247b05b30d5874b9714bd7934e765c5f5d49bde2f894353fa5ccd07",
+      "vcs_lines": [
+        "build\tvcs=git",
+        "build\tvcs.revision=a04614b0ec47bdcbbbedd355ac6454419e391b28",
+        "build\tvcs.time=2026-10-22T09:17:27Z",
+        "build\tvcs.modified=true"
+      ],
+      "build_info": "name=enroll-conflict\nversion=1.0.0\nbuild_no=100\nrun_id=local-repro-20261023\ncommit=a04614b0ec47bdcbbbedd355ac6454419e391b28\ngo=go1.26.9\n",
+      "source_status": "M Makefile"
+    }
+  ],
+  "final_status": ""
+}

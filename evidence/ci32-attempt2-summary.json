@@ -1,0 +1,52 @@
+{
+  "status": "completed",
+  "run_id": 39754271411,
+  "run_number": 32,
+  "attempt": 2,
+  "event": "push",
+  "head_sha": "a04614b0ec47bdcbbbedd355ac6454419e391b28",
+  "workflow_sha": "a04614b0ec47bdcbbbedd355ac6454419e391b28",
+  "url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39754271411/attempts/2",
+  "conclusion": "success",
+  "run_started_at": "2026-10-23T10:22:08Z",
+  "job_started_at": "2026-10-23T10:22:14Z",
+  "job_completed_at": "2026-10-23T10:22:49Z",
+  "workflow_seconds": 41.0,
+  "job_seconds": 35.0,
+  "step_seconds": {
+    "Set up job": 1.0,
+    "Check out source": 1.0,
+    "Set up Go": 7.0,
+    "Show build context": 0.0,
+    "Check formatting": 1.0,
+    "Run vet": 14.0,
+    "Run tests": 4.0,
+    "Package main build": 1.0,
+    "Print checksums": 0.0,
+    "Upload main artifacts": 2.0,
+    "Post Set up Go": 0.0,
+    "Post Check out source": 0.0,
+    "Complete job": 0.0
+  },
+  "runner_image_versions": [
+    "20261012.334",
+    "20261012.601"
+  ],
+  "cache_lines": [
+    "2026-10-23T10:22:17.7602953Z   cache: true",
+    "2026-10-23T10:22:22.2608195Z Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+    "2026-10-23T10:22:24.3666305Z Cache restored successfully",
+    "2026-10-23T10:22:24.3695337Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+    "2026-10-23T10:22:46.6213670Z Cache hit occurred on the primary key setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8, not saving cache."
+  ],
+  "checksums": [
+    {
+      "sha256": "a5082c805b860b6cde24208d203aa36bba544e9f547d8f2845cb8e9caeeec2ed",
+      "path": "dist/enroll-conflict_0.0.0-main_linux_amd64/enroll-conflict"
+    },
+    {
+      "sha256": "f3704fd7a57e7951e8ede14eb8a8ca28d85029c2072f4ab54e3ebbe8910bf558",
+      "path": "dist/enroll-conflict_0.0.0-main_linux_amd64.tar.gz"
+    }
+  ]
+}

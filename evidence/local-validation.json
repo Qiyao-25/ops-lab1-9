@@ -1,0 +1,49 @@
+{
+  "version_test_detected_hardcoded_metadata": true,
+  "workflow_shell_steps_checked": 8,
+  "main_ci32_archive_sha256": "f3704fd7a57e7951e8ede14eb8a8ca28d85029c2072f4ab54e3ebbe8910bf558",
+  "rollback_port": 54719,
+  "rollback": [
+    {
+      "version": "1.0.1",
+      "commit": "0e68161b2924d975d970e3ca9c97b0935519f754",
+      "build_no": "3",
+      "go": "go1.26.9"
+    },
+    {
+      "version": "1.0.0",
+      "commit": "0e68161b2924d975d970e3ca9c97b0935519f754",
+      "build_no": "1",
+      "go": "go1.26.9"
+    }
+  ],
+  "release_archive_hashes": {
+    "1.0.0": "4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c",
+    "1.0.1": "1f68ffc908cef53991bbc55697bd20b0de4ef5b9df39c8d59b4a56892587e0f5"
+  },
+  "local_container": {
+    "image": "lab1-review/enroll-conflict:1.0.0",
+    "id": "sha256:cba2c1ec280b2794a0f52bb5f6bd6e755591cc775a7a4769062895a41dc611fa",
+    "repo_digests": [
+      "lab1-review/enroll-conflict@sha256:cba2c1ec280b2794a0f52bb5f6bd6e755591cc775a7a4769062895a41dc611fa",
+      "enroll-conflict@sha256:cba2c1ec280b2794a0f52bb5f6bd6e755591cc775a7a4769062895a41dc611fa"
+    ],
+    "executed_ref": "lab1-review/enroll-conflict@sha256:cba2c1ec280b2794a0f52bb5f6bd6e755591cc775a7a4769062895a41dc611fa",
+    "os": "linux",
+    "architecture": "amd64",
+    "version_output": "enroll-conflict version=1.0.0 commit=0e68161b2924d975d970e3ca9c97b0935519f754 build_no=1 go=go1.26.9",
+    "ghcr_published": false
+  },
+  "release_rebuild": {
+    "commit": "0e68161b2924d975d970e3ca9c97b0935519f754",
+    "binary_sha256": "92218d8a400349f74b905ffdf045a99e16aff9ce70fb06d3e9364398c7661524",
+    "archive_sha256": "15dec84b6f2dc4711b12f7fcce061041aefe22abc0abed5e6b9601ba9d3979e1",
+    "matches_published_archive": false
+  },
+  "pr4_sha_in_main_history": {
+    "87c3b2d01cd26e518d76fb453f9ba9e572d5a93b": false,
+    "ce000f59958f4e8c2b3e32ccfefb1f343c0ef849": false,
+    "eee7836dcea975d3281df198c1bd62c03cfff9a6": true
+  },
+  "candidate_status": "M .github/workflows/release.yml\n M main_test.go"
+}

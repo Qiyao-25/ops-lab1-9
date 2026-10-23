@@ -17,14 +17,29 @@ func TestHealthz(t *testing.T) {
 }
 
 func TestVersionEndpoint(t *testing.T) {
+	originalVersion, originalCommit, originalBuildNo := version, commit, buildNo
+	version, commit, buildNo = "1.2.3-test", strings.Repeat("a", 40), "42"
+	t.Cleanup(func() {
+		version, commit, buildNo = originalVersion, originalCommit, originalBuildNo
+	})
+
 	rec := httptest.NewRecorder()
 	newMux().ServeHTTP(rec, httptest.NewRequest("GET", "/version", nil))
+	if rec.Code != http.StatusOK {
+		t.Fatalf("/version 返回 %d，期望 200", rec.Code)
+	}
+	if got := rec.Header().Get("Content-Type"); got != "application/json" {
+		t.Fatalf("/version Content-Type 为 %q，期望 application/json", got)
+	}
 	var got versionInfo
 	if err := json.Unmarshal(rec.Body.Bytes(), &got); err != nil {
 		t.Fatalf("/version 不是合法 JSON：%v", err)
 	}
 	if got.Version == "" || got.Commit == "" || got.BuildNo == "" {
 		t.Errorf("/version 缺少字段：%+v", got)
+	}
+	if want := currentVersion(); got != want {
+		t.Errorf("/version 返回 %+v，期望当前进程的构建信息 %+v", got, want)
 	}
 }
 

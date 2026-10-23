@@ -1,0 +1,19 @@
+== 1. 校验和
+enroll-conflict_1.0.1_linux_amd64.tar.gz: OK
+== 2. 制品里的 BUILD_INFO
+name=enroll-conflict
+version=1.0.1
+build_no=3
+run_id=39723834091
+commit=0e68161b2924d975d970e3ca9c97b0935519f754
+go=go1.26.9
+== 3. 提交 0e68161b2924d975d970e3ca9c97b0935519f754
+作者: Lu Yakun <3336702498@qq.com>
+时间: 2026-10-22T10:44:17+08:00
+标题: ci: add gated tag release workflow (#6)
+主干: 该提交在 origin/main 的历史上
+指向它的 tag: v1.0.0
+v1.0.1
+版本号: 1.0.1    构建号: 3
+提交页面（含关联的 PR）: https://github.com/Qiyao-25/ops-lab1-9/commit/0e68161b2924d975d970e3ca9c97b0935519f754
+构建它的运行: https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39723834091

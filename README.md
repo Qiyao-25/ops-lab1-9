@@ -42,4 +42,12 @@ dist/enroll-conflict_1.0.0_linux_amd64/enroll-conflict -version
 | `Dockerfile` | 选做 O1 使用 |
 | `LAB1.md` | 小组的证据与分析记录，需要填写并提交 |
 
-仓库中没有 `.github/workflows/`：流水线由小组在实验中自行编写。
+## 流水线与实验记录
+
+- `.github/workflows/ci.yml`：PR 检查，以及 main push 的检查、打包与制品上传。
+- `.github/workflows/release.yml`：版本 tag 的主干归属检查、重新测试和发布；新增 image job 从发布附件构建镜像，并记录摘要、运行输出与匿名拉取结果。
+- [LAB1.md](LAB1.md)：实验数据、分析及尚待 GitHub 执行的步骤。
+- [evidence](evidence/)：2026-10-23 补充实验的哈希、追溯与回退原始数据。
+- [O3 迁移说明](docs/O3-MIGRATION.md)：Python 项目与统一示例的差异及证据。
+
+新增的镜像工作流尚未在 GitHub 执行，不能以本地镜像结果代替 GHCR 发布证明。两个已有正式版本保持原样，后续补充发布使用新的版本号。

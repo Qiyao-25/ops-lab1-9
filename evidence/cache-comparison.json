@@ -1,0 +1,479 @@
+{
+  "base_commit": "a04614b0ec47bdcbbbedd355ac6454419e391b28",
+  "experiment_pr": "https://github.com/Qiyao-25/ops-lab1-9/pull/15",
+  "protocol": "docs/CACHE-EXPERIMENT.md in the experiment PR was committed before the first measurement",
+  "timing_definition": "workflow_seconds = last ci job completed_at - attempt run_started_at; job_seconds = job completed_at - job started_at",
+  "summary": {
+    "true": {
+      "n": 5,
+      "workflow_seconds": [
+        12.0,
+        21.0,
+        19.0,
+        22.0,
+        15.0
+      ],
+      "workflow_median": 19.0,
+      "job_seconds": [
+        8.0,
+        17.0,
+        15.0,
+        18.0,
+        11.0
+      ],
+      "job_median": 15.0,
+      "step_medians": {
+        "Set up Go": 2.0,
+        "Run vet": 5.0,
+        "Run tests": 1.0
+      }
+    },
+    "false": {
+      "n": 5,
+      "workflow_seconds": [
+        29.0,
+        29.0,
+        32.0,
+        32.0,
+        34.0
+      ],
+      "workflow_median": 32.0,
+      "job_seconds": [
+        25.0,
+        25.0,
+        27.0,
+        28.0,
+        28.0
+      ],
+      "job_median": 27.0,
+      "step_medians": {
+        "Set up Go": 1.0,
+        "Run vet": 17.0,
+        "Run tests": 3.0
+      }
+    }
+  },
+  "observed_workflow_reduction_percent": 40.62,
+  "samples": [
+    {
+      "status": "completed",
+      "run_id": 39938656519,
+      "run_number": 33,
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39938656519/attempts/1",
+      "conclusion": "success",
+      "run_started_at": "2026-10-23T10:22:39Z",
+      "job_started_at": "2026-10-23T10:22:43Z",
+      "job_completed_at": "2026-10-23T10:22:51Z",
+      "workflow_seconds": 12.0,
+      "job_seconds": 8.0,
+      "step_seconds": {
+        "Set up job": 2.0,
+        "Check out source": 1.0,
+        "Set up Go": 1.0,
+        "Show build context": 0.0,
+        "Check formatting": 0.0,
+        "Run vet": 1.0,
+        "Run tests": 1.0,
+        "Post Set up Go": 0.0,
+        "Post Check out source": 0.0,
+        "Complete job": 0.0
+      },
+      "runner_image_versions": [
+        "20261012.334",
+        "20261012.601"
+      ],
+      "cache_lines": [
+        "2026-10-23T10:22:46.0579328Z   cache: true",
+        "2026-10-23T10:22:46.3740237Z Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+        "2026-10-23T10:22:47.5408984Z Cache restored successfully",
+        "2026-10-23T10:22:47.5433222Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+        "2026-10-23T10:22:49.5486169Z Cache hit occurred on the primary key setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8, not saving cache."
+      ],
+      "checksums": [],
+      "cache_enabled": true,
+      "runner_image_version": "20261012.334.1",
+      "github_sha": "4d8abe9e26210d3b8cc8a38b3123b201c59498d7",
+      "pr_head_sha": "c60ae66396fac2d75027c2976e72cdb5207ba644",
+      "api_head_commit_id": "c60ae66396fac2d75027c2976e72cdb5207ba644",
+      "cache_state": "hit"
+    },
+    {
+      "status": "completed",
+      "run_id": 39938656519,
+      "run_number": 33,
+      "attempt": 2,
+      "event": "pull_request",
+      "url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39938656519/attempts/2",
+      "conclusion": "success",
+      "run_started_at": "2026-10-23T10:24:02Z",
+      "job_started_at": "2026-10-23T10:24:06Z",
+      "job_completed_at": "2026-10-23T10:24:23Z",
+      "workflow_seconds": 21.0,
+      "job_seconds": 17.0,
+      "step_seconds": {
+        "Set up job": 2.0,
+        "Check out source": 1.0,
+        "Set up Go": 3.0,
+        "Show build context": 0.0,
+        "Check formatting": 1.0,
+        "Run vet": 5.0,
+        "Run tests": 1.0,
+        "Post Set up Go": 0.0,
+        "Post Check out source": 0.0,
+        "Complete job": 0.0
+      },
+      "runner_image_versions": [
+        "20261012.334",
+        "20261012.601"
+      ],
+      "cache_lines": [
+        "2026-10-23T10:24:10.3363831Z   cache: true",
+        "2026-10-23T10:24:11.5960163Z Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+        "2026-10-23T10:24:13.6397547Z Cache restored successfully",
+        "2026-10-23T10:24:13.6428607Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+        "2026-10-23T10:24:20.5625179Z Cache hit occurred on the primary key setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8, not saving cache."
+      ],
+      "checksums": [],
+      "cache_enabled": true,
+      "runner_image_version": "20261012.334.1",
+      "github_sha": "4d8abe9e26210d3b8cc8a38b3123b201c59498d7",
+      "pr_head_sha": "c60ae66396fac2d75027c2976e72cdb5207ba644",
+      "api_head_commit_id": "c60ae66396fac2d75027c2976e72cdb5207ba644",
+      "cache_state": "hit"
+    },
+    {
+      "status": "completed",
+      "run_id": 39938656519,
+      "run_number": 33,
+      "attempt": 3,
+      "event": "pull_request",
+      "url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39938656519/attempts/3",
+      "conclusion": "success",
+      "run_started_at": "2026-10-23T10:25:37Z",
+      "job_started_at": "2026-10-23T10:25:41Z",
+      "job_completed_at": "2026-10-23T10:25:56Z",
+      "workflow_seconds": 19.0,
+      "job_seconds": 15.0,
+      "step_seconds": {
+        "Set up job": 1.0,
+        "Check out source": 1.0,
+        "Set up Go": 2.0,
+        "Show build context": 0.0,
+        "Check formatting": 0.0,
+        "Run vet": 7.0,
+        "Run tests": 1.0,
+        "Post Set up Go": 0.0,
+        "Post Check out source": 0.0,
+        "Complete job": 1.0
+      },
+      "runner_image_versions": [
+        "20261012.334",
+        "20261012.601"
+      ],
+      "cache_lines": [
+        "2026-10-23T10:25:44.1152680Z   cache: true",
+        "2026-10-23T10:25:45.6721404Z Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+        "2026-10-23T10:25:46.4919672Z Cache restored successfully",
+        "2026-10-23T10:25:46.4944587Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+        "2026-10-23T10:25:54.7179842Z Cache hit occurred on the primary key setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8, not saving cache."
+      ],
+      "checksums": [],
+      "cache_enabled": true,
+      "runner_image_version": "20261012.334.1",
+      "github_sha": "4d8abe9e26210d3b8cc8a38b3123b201c59498d7",
+      "pr_head_sha": "c60ae66396fac2d75027c2976e72cdb5207ba644",
+      "api_head_commit_id": "c60ae66396fac2d75027c2976e72cdb5207ba644",
+      "cache_state": "hit"
+    },
+    {
+      "status": "completed",
+      "run_id": 39938656519,
+      "run_number": 33,
+      "attempt": 4,
+      "event": "pull_request",
+      "url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39938656519/attempts/4",
+      "conclusion": "success",
+      "run_started_at": "2026-10-23T10:26:12Z",
+      "job_started_at": "2026-10-23T10:26:16Z",
+      "job_completed_at": "2026-10-23T10:26:34Z",
+      "workflow_seconds": 22.0,
+      "job_seconds": 18.0,
+      "step_seconds": {
+        "Set up job": 1.0,
+        "Check out source": 1.0,
+        "Set up Go": 4.0,
+        "Show build context": 0.0,
+        "Check formatting": 0.0,
+        "Run vet": 5.0,
+        "Run tests": 2.0,
+        "Post Set up Go": 0.0,
+        "Post Check out source": 1.0,
+        "Complete job": 0.0
+      },
+      "runner_image_versions": [
+        "20261012.334",
+        "20261012.601"
+      ],
+      "cache_lines": [
+        "2026-10-23T10:26:20.4563284Z   cache: true",
+        "2026-10-23T10:26:22.3216545Z Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+        "2026-10-23T10:26:24.3994624Z Cache restored successfully",
+        "2026-10-23T10:26:24.4025477Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+        "2026-10-23T10:26:31.8288532Z Cache hit occurred on the primary key setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8, not saving cache."
+      ],
+      "checksums": [],
+      "cache_enabled": true,
+      "runner_image_version": "20261012.334.1",
+      "github_sha": "4d8abe9e26210d3b8cc8a38b3123b201c59498d7",
+      "pr_head_sha": "c60ae66396fac2d75027c2976e72cdb5207ba644",
+      "api_head_commit_id": "c60ae66396fac2d75027c2976e72cdb5207ba644",
+      "cache_state": "hit"
+    },
+    {
+      "status": "completed",
+      "run_id": 39938656519,
+      "run_number": 33,
+      "attempt": 5,
+      "event": "pull_request",
+      "url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39938656519/attempts/5",
+      "conclusion": "success",
+      "run_started_at": "2026-10-23T10:26:45Z",
+      "job_started_at": "2026-10-23T10:26:49Z",
+      "job_completed_at": "2026-10-23T10:27:00Z",
+      "workflow_seconds": 15.0,
+      "job_seconds": 11.0,
+      "step_seconds": {
+        "Set up job": 1.0,
+        "Check out source": 1.0,
+        "Set up Go": 1.0,
+        "Show build context": 0.0,
+        "Check formatting": 1.0,
+        "Run vet": 3.0,
+        "Run tests": 1.0,
+        "Post Set up Go": 1.0,
+        "Post Check out source": 0.0,
+        "Complete job": 0.0
+      },
+      "runner_image_versions": [
+        "20261012.334",
+        "20261012.601"
+      ],
+      "cache_lines": [
+        "2026-10-23T10:26:52.2700075Z   cache: true",
+        "2026-10-23T10:26:53.0302738Z Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+        "2026-10-23T10:26:53.8198340Z Cache restored successfully",
+        "2026-10-23T10:26:53.8222925Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8",
+        "2026-10-23T10:26:59.0460295Z Cache hit occurred on the primary key setup-go-Linux-x64-ubuntu24-go-1.26.9-e6d3ebd9b20d0fd148250ab0b0465efbd82889edc6fac421380e1151687d99b8, not saving cache."
+      ],
+      "checksums": [],
+      "cache_enabled": true,
+      "runner_image_version": "20261012.334.1",
+      "github_sha": "4d8abe9e26210d3b8cc8a38b3123b201c59498d7",
+      "pr_head_sha": "c60ae66396fac2d75027c2976e72cdb5207ba644",
+      "api_head_commit_id": "c60ae66396fac2d75027c2976e72cdb5207ba644",
+      "cache_state": "hit"
+    },
+    {
+      "status": "completed",
+      "run_id": 39939386365,
+      "run_number": 34,
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39939386365/attempts/1",
+      "conclusion": "success",
+      "run_started_at": "2026-10-23T10:28:47Z",
+      "job_started_at": "2026-10-23T10:28:51Z",
+      "job_completed_at": "2026-10-23T10:29:16Z",
+      "workflow_seconds": 29.0,
+      "job_seconds": 25.0,
+      "step_seconds": {
+        "Set up job": 1.0,
+        "Check out source": 1.0,
+        "Set up Go": 1.0,
+        "Show build context": 0.0,
+        "Check formatting": 0.0,
+        "Run vet": 15.0,
+        "Run tests": 3.0,
+        "Post Set up Go": 0.0,
+        "Post Check out source": 0.0,
+        "Complete job": 0.0
+      },
+      "runner_image_versions": [
+        "20261012.334",
+        "20261012.601"
+      ],
+      "cache_lines": [
+        "2026-10-23T10:28:54.6880695Z   cache: false"
+      ],
+      "checksums": [],
+      "cache_enabled": false,
+      "runner_image_version": "20261012.334.1",
+      "github_sha": "394be44f4f24b87ab3f0fe038b68fb47c6451001",
+      "pr_head_sha": "94d9c0417fed03f3d002b968030cd9044b2ec30f",
+      "api_head_commit_id": "94d9c0417fed03f3d002b968030cd9044b2ec30f",
+      "cache_state": "disabled"
+    },
+    {
+      "status": "completed",
+      "run_id": 39939386365,
+      "run_number": 34,
+      "attempt": 2,
+      "event": "pull_request",
+      "url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39939386365/attempts/2",
+      "conclusion": "success",
+      "run_started_at": "2026-10-23T10:29:32Z",
+      "job_started_at": "2026-10-23T10:29:36Z",
+      "job_completed_at": "2026-10-23T10:30:01Z",
+      "workflow_seconds": 29.0,
+      "job_seconds": 25.0,
+      "step_seconds": {
+        "Set up job": 2.0,
+        "Check out source": 1.0,
+        "Set up Go": 1.0,
+        "Show build context": 0.0,
+        "Check formatting": 1.0,
+        "Run vet": 16.0,
+        "Run tests": 2.0,
+        "Post Set up Go": 0.0,
+        "Post Check out source": 0.0,
+        "Complete job": 0.0
+      },
+      "runner_image_versions": [
+        "20261012.334",
+        "20261012.601"
+      ],
+      "cache_lines": [
+        "2026-10-23T10:29:39.0976895Z   cache: false"
+      ],
+      "checksums": [],
+      "cache_enabled": false,
+      "runner_image_version": "20261012.334.1",
+      "github_sha": "394be44f4f24b87ab3f0fe038b68fb47c6451001",
+      "pr_head_sha": "94d9c0417fed03f3d002b968030cd9044b2ec30f",
+      "api_head_commit_id": "94d9c0417fed03f3d002b968030cd9044b2ec30f",
+      "cache_state": "disabled"
+    },
+    {
+      "status": "completed",
+      "run_id": 39939386365,
+      "run_number": 34,
+      "attempt": 3,
+      "event": "pull_request",
+      "url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39939386365/attempts/3",
+      "conclusion": "success",
+      "run_started_at": "2026-10-23T10:30:19Z",
+      "job_started_at": "2026-10-23T10:30:24Z",
+      "job_completed_at": "2026-10-23T10:30:51Z",
+      "workflow_seconds": 32.0,
+      "job_seconds": 27.0,
+      "step_seconds": {
+        "Set up job": 2.0,
+        "Check out source": 0.0,
+        "Set up Go": 1.0,
+        "Show build context": 0.0,
+        "Check formatting": 0.0,
+        "Run vet": 17.0,
+        "Run tests": 3.0,
+        "Post Set up Go": 0.0,
+        "Post Check out source": 0.0,
+        "Complete job": 0.0
+      },
+      "runner_image_versions": [
+        "20261012.334",
+        "20261012.601"
+      ],
+      "cache_lines": [
+        "2026-10-23T10:30:27.7471269Z   cache: false"
+      ],
+      "checksums": [],
+      "cache_enabled": false,
+      "runner_image_version": "20261012.334.1",
+      "github_sha": "394be44f4f24b87ab3f0fe038b68fb47c6451001",
+      "pr_head_sha": "94d9c0417fed03f3d002b968030cd9044b2ec30f",
+      "api_head_commit_id": "94d9c0417fed03f3d002b968030cd9044b2ec30f",
+      "cache_state": "disabled"
+    },
+    {
+      "status": "completed",
+      "run_id": 39939386365,
+      "run_number": 34,
+      "attempt": 4,
+      "event": "pull_request",
+      "url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39939386365/attempts/4",
+      "conclusion": "success",
+      "run_started_at": "2026-10-23T10:31:08Z",
+      "job_started_at": "2026-10-23T10:31:12Z",
+      "job_completed_at": "2026-10-23T10:31:40Z",
+      "workflow_seconds": 32.0,
+      "job_seconds": 28.0,
+      "step_seconds": {
+        "Set up job": 1.0,
+        "Check out source": 1.0,
+        "Set up Go": 1.0,
+        "Show build context": 0.0,
+        "Check formatting": 0.0,
+        "Run vet": 19.0,
+        "Run tests": 3.0,
+        "Post Set up Go": 0.0,
+        "Post Check out source": 0.0,
+        "Complete job": 0.0
+      },
+      "runner_image_versions": [
+        "20261012.334",
+        "20261012.601"
+      ],
+      "cache_lines": [
+        "2026-10-23T10:31:15.2884988Z   cache: false"
+      ],
+      "checksums": [],
+      "cache_enabled": false,
+      "runner_image_version": "20261012.334.1",
+      "github_sha": "394be44f4f24b87ab3f0fe038b68fb47c6451001",
+      "pr_head_sha": "94d9c0417fed03f3d002b968030cd9044b2ec30f",
+      "api_head_commit_id": "94d9c0417fed03f3d002b968030cd9044b2ec30f",
+      "cache_state": "disabled"
+    },
+    {
+      "status": "completed",
+      "run_id": 39939386365,
+      "run_number": 34,
+      "attempt": 5,
+      "event": "pull_request",
+      "url": "https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39939386365/attempts/5",
+      "conclusion": "success",
+      "run_started_at": "2026-10-23T10:31:58Z",
+      "job_started_at": "2026-10-23T10:32:04Z",
+      "job_completed_at": "2026-10-23T10:32:32Z",
+      "workflow_seconds": 34.0,
+      "job_seconds": 28.0,
+      "step_seconds": {
+        "Set up job": 2.0,
+        "Check out source": 0.0,
+        "Set up Go": 1.0,
+        "Show build context": 0.0,
+        "Check formatting": 0.0,
+        "Run vet": 18.0,
+        "Run tests": 3.0,
+        "Post Set up Go": 0.0,
+        "Post Check out source": 0.0,
+        "Complete job": 1.0
+      },
+      "runner_image_versions": [
+        "20261012.334",
+        "20261012.601"
+      ],
+      "cache_lines": [
+        "2026-10-23T10:32:07.7107385Z   cache: false"
+      ],
+      "checksums": [],
+      "cache_enabled": false,
+      "runner_image_version": "20261012.334.1",
+      "github_sha": "394be44f4f24b87ab3f0fe038b68fb47c6451001",
+      "pr_head_sha": "94d9c0417fed03f3d002b968030cd9044b2ec30f",
+      "api_head_commit_id": "94d9c0417fed03f3d002b968030cd9044b2ec30f",
+      "cache_state": "disabled"
+    }
+  ]
+}
