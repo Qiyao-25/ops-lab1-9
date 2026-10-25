@@ -57,16 +57,16 @@ error: failed to push some refs to 'https://github.com/Qiyao-25/ops-lab1-9.git'
 HEAD is now at 3bd8d71 basci info (#2)
 ## 4. 追溯与运行
 
-对 v1.0.0 和 v1.0.1 各运行一次 `scripts/trace.sh`，粘贴输出，并填写下表。
+对 v1.0.0、v1.0.1 和 v1.0.2 各运行一次 `scripts/trace.sh`，粘贴输出，并填写下表。
 
-| 项 | v1.0.0 | v1.0.1 |
-|---|---|---|
-| 版本号 | 1.0.0 | 1.0.1 |
-| 构建号 | 1 | 3 |
-| 提交号（SHA） | `0e68161b2924d975d970e3ca9c97b0935519f754` | `0e68161b2924d975d970e3ca9c97b0935519f754` |
-| 引入该提交的 PR | [#6](https://github.com/Qiyao-25/ops-lab1-9/pull/6) | [#6](https://github.com/Qiyao-25/ops-lab1-9/pull/6) |
-| 构建它的 Actions 运行（`trace.sh` 给出的链接） | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39723834091 |
-| 制品 sha256（发布当时，取自 Release 里的 .sha256） | `4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c` | `1f68ffc908cef53991bbc55697bd20b0de4ef5b9df39c8d59b4a56892587e0f5` |
+| 项 | v1.0.0 | v1.0.1 | v1.0.2 |
+|---|---|---|---|
+| 版本号 | 1.0.0 | 1.0.1 | 1.0.2 |
+| 构建号 | 1 | 3 | 4 |
+| 提交号（SHA） | `0e68161b2924d975d970e3ca9c97b0935519f754` | `0e68161b2924d975d970e3ca9c97b0935519f754` | `b2547a988336ac54b1d0bbde4ff94ce373a1fb8b` |
+| 引入该提交的 PR | [#6](https://github.com/Qiyao-25/ops-lab1-9/pull/6) | [#6](https://github.com/Qiyao-25/ops-lab1-9/pull/6) | [#16](https://github.com/Qiyao-25/ops-lab1-9/pull/16) |
+| 构建它的 Actions 运行（`trace.sh` 给出的链接） | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39723834091 | https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39943710686 |
+| 制品 sha256（发布当时，取自 Release 里的 .sha256） | `4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c` | `1f68ffc908cef53991bbc55697bd20b0de4ef5b9df39c8d59b4a56892587e0f5` | `fdafd5232600bf8b1da12238d4e04e14c897334d18c48a58d6776a703d4fe779` |
 
 仅凭构建号能否唯一确定是哪次运行？v1.0.0 的构建号在 `ci` 和 `release` 的运行列表中各对应哪次运行？
 
@@ -121,11 +121,34 @@ v1.0.1
 构建它的运行: https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39723834091
 ```
 
+`trace.sh` 输出（v1.0.2）：
+
+```text
+== 1. 校验和
+enroll-conflict_1.0.2_linux_amd64.tar.gz: OK
+== 2. 制品里的 BUILD_INFO
+name=enroll-conflict
+version=1.0.2
+build_no=4
+run_id=39943710686
+commit=b2547a988336ac54b1d0bbde4ff94ce373a1fb8b
+go=go1.26.9
+== 3. 提交 b2547a988336ac54b1d0bbde4ff94ce373a1fb8b
+作者: Nuo Wang <2489397324@qq.com>
+时间: 2026-10-23T18:48:22+08:00
+标题: lab: complete reproducibility analysis and container verification (#16)
+主干: 该提交在 origin/main 的历史上
+指向它的 tag: v1.0.2
+版本号: 1.0.2    构建号: 4
+提交页面（含关联的 PR）: https://github.com/Qiyao-25/ops-lab1-9/commit/b2547a988336ac54b1d0bbde4ff94ce373a1fb8b
+构建它的运行: https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39943710686
+```
+
 任务 6 第 4 步，两次 `/version` 的输出：
 
 ```text
-运行 v1.0.1 时：
-{"version":"1.0.1","commit":"0e68161b2924d975d970e3ca9c97b0935519f754","build_no":"3","go":"go1.26.9"}
+运行 v1.0.2 时：
+{"version":"1.0.2","commit":"b2547a988336ac54b1d0bbde4ff94ce373a1fb8b","build_no":"4","go":"go1.26.9"}
 
 换回 v1.0.0 后：
 {"version":"1.0.0","commit":"0e68161b2924d975d970e3ca9c97b0935519f754","build_no":"1","go":"go1.26.9"}
@@ -271,15 +294,15 @@ v1.0.0 与 v1.0.1 均指向 PR #6 的提交。v1.0.1 发布时间为 2026-10-22 
 
 **问题 4：发布与回退。**
 
-数据：第 4 节两次 /version 及 [本次复测](evidence/local-validation.json)；v1.0.0 原附件哈希为 4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c，复测仍一致；问题 3 的额外重建/标签对照提供了“重新编译是否同一文件”的实际数据。
+数据：第 9 节 v1.0.2 回退记录及 [最终验证](evidence/final-release-validation.json)；v1.0.0 原附件哈希为 4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c，复测仍一致；问题 3 的额外重建/标签对照提供了"重新编译是否同一文件"的实际数据。
 
-- v1.0.1 发布后发现缺陷如何处理：先把运行入口切回经校验的 v1.0.0 原附件，再经修复、PR、审批和检查后发布新版本号，并在旧版本说明中交代问题。
-- 为何不应删除 v1.0.1 tag 再用同一版本号重发：同一版本号可能对应不同字节，下载缓存、校验值和故障追溯都会失去稳定含义。
-- 从 v1.0.1 切回 v1.0.0 用的是哪个文件、是否重新构建：用的是从 `enroll-conflict_1.0.0_linux_amd64.tar.gz` 解出的 `enroll-conflict` 二进制，没有重新构建。
-- 两次 /version 输出说明：运行 v1.0.1 时 `{"version":"1.0.1","commit":"0e68161...","build_no":"3"}`；换回 v1.0.0 后 `{"version":"1.0.0","commit":"0e68161...","build_no":"1"}`。commit 相同，仅 version 和 build_no 变化，说明是制品切换而非源码回退。
+- v1.0.2 发布后发现缺陷如何处理：先把运行入口切回经校验的 v1.0.0 原附件，再经修复、PR、审批和检查后发布新版本号，并在旧版本说明中交代问题。
+- 为何不应删除 v1.0.2 tag 再用同一版本号重发：同一版本号可能对应不同字节，下载缓存、校验值和故障追溯都会失去稳定含义。
+- 从 v1.0.2 切回 v1.0.0 用的是哪个文件、是否重新构建：用的是从 `enroll-conflict_1.0.0_linux_amd64.tar.gz` 解出的 `enroll-conflict` 二进制，没有重新构建。
+- 两次 /version 输出说明：运行 v1.0.2 时 `{"version":"1.0.2","commit":"b2547a9...","build_no":"4"}`；换回 v1.0.0 后 `{"version":"1.0.0","commit":"0e68161...","build_no":"1"}`。version、build_no 和 commit 均变化，说明不仅是制品切换，还回退到了不同的源码提交。
 - 从源码重新构建 v1.0.0 能否得到相同文件：不必然相同。问题 3 已测到，仅同提交上多了后续 tag 就会改变 Go 嵌入的模块版本；需固定标签集合并固定全部输入才能复现原二进制。
 - 有人替换 v1.0.0 附件和 .sha256，trace.sh 能否发现：不能。trace.sh 只检查当前提供的附件与 .sha256 是否一致、以及提交是否属于 main，没有第三方可信的旧哈希做对照。
-- 第 4 节记录的值能否发现：能。第 4 节发布时保存了 v1.0.0 的 sha256，与被替换后的新值比对即可发现不同字节；前提是该记录本身可信且未被一并篡改。本组未开启 GitHub Immutable releases（v1.0.0、v1.0.1 的 immutable 均为 false），附件和 tag 发布后仍可被改动。
+- 第 4 节记录的值能否发现：能。第 4 节发布时保存了 v1.0.0 的 sha256，与被替换后的新值比对即可发现不同字节；前提是该记录本身可信且未被一并篡改。本组未开启 GitHub Immutable releases（v1.0.0、v1.0.1、v1.0.2 的 immutable 均为 false），附件和 tag 发布后仍可被改动。
 
 ## 7. 选做记录
 
