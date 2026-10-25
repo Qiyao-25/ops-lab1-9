@@ -70,7 +70,7 @@ HEAD is now at 3bd8d71 basci info (#2)
 
 仅凭构建号能否唯一确定是哪次运行？v1.0.0 的构建号在 `ci` 和 `release` 的运行列表中各对应哪次运行？
 
-不能。`github.run_number` 在每个工作流中独立计数，因此相同构建号可能对应不同运行。v1.0.0 的构建号为 1：在 `ci` 中，对应 [ci #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39383173108)；在 `release` 中，对应 [release #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034)。实际构建 v1.0.0 发布附件的是后者，可通过附件 `BUILD_INFO` 中的 `run_id=39713235034` 唯一定位。
+不能。`github.run_number` 在每个工作流中独立计数，因此相同构建号可能对应不同运行。v1.0.0 发布附件的构建号为 1；仅按编号 1 查找，会分别找到 [ci #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39383173108) 和 [release #1](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713235034)，但二者使用的源码提交不同：ci #1 对应 `07885bd208dcb0e04a7c1411a65325e9be1ccf25`，并非 v1.0.0 的发布提交。v1.0.0 实际使用的提交 `0e68161b2924d975d970e3ca9c97b0935519f754`，在 main 上对应 [ci #20](https://github.com/Qiyao-25/ops-lab1-9/actions/runs/39713022852)，正式发布对应 release #1。发布附件由 release #1 构建，可通过 `BUILD_INFO` 中的 `run_id=39713235034` 唯一定位。
 
 发布 v1.0.1 之后重新下载 v1.0.0 的附件，计算得到的 sha256：`4a5cea3713d011296c8d6fe18269f82aed47b220a98e26fb246dee569b82416c`。与上表中发布当时的值是否一致？一致。
 
